@@ -1,37 +1,56 @@
 # Prüfungswissen Pflanzenschutz 🌿🛡️
 
-Willkommen zur Lernübersicht für die Sachkundeprüfung im Pflanzenschutz. Diese Seite fasst die wichtigsten Grundlagen für eine erfolgreiche Prüfung zusammen.
+Dieses Kompendium dient zur Vorbereitung auf die Sachkundeprüfung gemäß PflSchG.
 
 ---
 
-## 1. Gesetzliche Grundlagen
-* **Pflanzenschutzgesetz (PflSchG):** Schutz von Pflanzen, Pflanzenerzeugnissen und der Gesundheit von Mensch und Tier.
-* **Sachkunde:** Wer darf Pflanzenschutzmittel (PSM) anwenden, verkaufen oder beraten?
-* **Anwendungsverbote:** Abstände zu Gewässern, Saumbiotopen und die Nutzung auf befestigten Flächen.
+## 📍 Schnellnavigation
+* [1. Gesetzliche Grundlagen](#gesetz)
+* [2. Schadursachen & Diagnose](#diagnose)
+* [3. Integrierter Pflanzenschutz (IPS)](#ips)
+* [4. Wirkstoffkunde & Ausbringung](#wirkstoffe)
+* [5. Anwenderschutz & PSA](#psa)
 
+---
+
+<a name="gesetz"></a>
+## 1. Gesetzliche Grundlagen
+* **Pflanzenschutzgesetz (PflSchG):** Basis für den Schutz von Pflanzen und der Umwelt.
+* **Sachkunde:** Pflicht für Anwender, Berater und Verkäufer. Fortbildung alle 3 Jahre!
+* **Gute fachliche Praxis:** Minimierung von Risiken durch fachgerechte Anwendung.
+
+<a name="diagnose"></a>
 ## 2. Schadursachen & Diagnose
 ### Biotische Faktoren (Belebt)
-* **Schadinsekten:** Beißende vs. saugende Insekten (z.B. Blattläuse, Käfer).
-* **Pilzkrankheiten:** Echter Mehltau (Schönwetterpilz) vs. Falscher Mehltau.
-* **Unkräuter/Ungräser:** Konkurrenz um Licht, Wasser und Nährstoffe.
+* **Viren, Bakterien, Pilze:** Mikroorganismen als Krankheitserreger.
+* **Schadtiere:** Insekten, Milben, Nagetiere.
+* **Unkräuter:** Platz- und Nährstoffräuber.
 
 ### Abiotische Faktoren (Unbelebt)
-* Frostschäden, Nährstoffmangel, Trockenstress oder Sonnenbrand.
+* Extreme Witterung, Bodenbeschaffenheit, Nährstoffüberfluss oder -mangel.
 
+<a name="ips"></a>
 ## 3. Integrierter Pflanzenschutz (IPS)
-Die Strategie erfolgt nach dem Schadschwellenprinzip:
-1. **Vorbeugung:** Standortwahl, resistente Sorten, Fruchtfolge.
-2. **Überwachung:** Gelbschalen, Leimfallen, regelmäßige Kontrolle.
-3. **Bekämpfung:** Biologisch vor Mechanisch vor Chemisch.
+> **Leitsatz:** "So viel wie nötig, so wenig wie möglich."
 
+1. **Vorbeugung:** Fruchtfolge, Sortenwahl, Düngung.
+2. **Beobachtung:** Monitoring durch Fallen oder Zählmethoden.
+3. **Schadschwelle:** Erst bei Überschreiten des wirtschaftlichen Schadens wird eingegriffen.
+
+<a name="wirkstoffe"></a>
 ## 4. Wirkstoffkunde & Ausbringung
-| Wirkungsweise | Erklärung |
+| Typ | Beschreibung |
 | :--- | :--- |
-| **Kontaktwirksam** | Wirkt direkt beim Auftreffen auf den Schädling. |
-| **Systemisch** | Wird von der Pflanze aufgenommen und verteilt. |
-| **Protektiv** | Vorbeugend, bevor eine Infektion entsteht. |
+| **Herbizide** | Gegen Unkräuter / Ungräser |
+| **Fungizide** | Gegen Pilzerkrankungen |
+| **Insektizide** | Gegen schädliche Insekten |
 
-> **Wichtig für die Prüfung:** Achte immer auf die persönliche Schutzausrüstung (PSA) – Handschuhe, Schutzanzug und Visier sind beim Ansetzen der Spritzbrühe Pflicht!
+<a name="psa"></a>
+## 5. Anwenderschutz & PSA
+Die persönliche Schutzausrüstung (PSA) ist beim Umgang mit Konzentraten lebenswichtig:
+* **Kopf:** Visier oder Schutzbrille.
+* **Körper:** Pflanzenschutz-Schutzanzug (zertifiziert).
+* **Hände:** Chemikalienresistente Handschuhe (Nitril).
 
 ---
-*Erstellt für die Prüfungsvorbereitung 2026*
+*Stand: März 2026 – Viel Erfolg bei der Prüfung!*
