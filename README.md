@@ -54,3 +54,4 @@ Die persönliche Schutzausrüstung (PSA) ist beim Umgang mit Konzentraten lebens
 
 ---
 *Stand: März 2026 – Viel Erfolg bei der Prüfung!*
+https://gemini.google.com/share/86206c90620f
