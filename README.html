@@ -10,7 +10,6 @@
             --secondary-color: #1b7c35;
             --bg-color: #f6f8fa;
             --text-color: #24292e;
-            --accent-color: #0366d6;
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
@@ -27,7 +26,7 @@
             text-align: center;
         }
         .container {
-            max-width: 850px;
+            max-width: 800px;
             margin: 20px auto;
             background: white;
             padding: 30px;
@@ -35,16 +34,6 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         h2 { border-bottom: 2px solid #eee; padding-bottom: 10px; color: var(--secondary-color); }
-        
-        /* Info-Box Style */
-        .info-box {
-            background-color: #e7f3ff;
-            border-left: 5px solid var(--accent-color);
-            padding: 15px;
-            margin-bottom: 30px;
-            border-radius: 4px;
-        }
-        .info-box h3 { margin-top: 0; color: var(--accent-color); }
         
         /* Quiz Styles */
         #quiz-container {
@@ -91,17 +80,9 @@
 </div>
 
 <div class="container">
-    <div class="info-box">
-        <h3>💡 Prüfungswissen: Pilzkrankheiten unterscheiden</h3>
-        <p>Ein häufiges Thema in der Prüfung ist der Unterschied zwischen Mehltausorten:</p>
-        <ul>
-            <li><strong>Echter Mehltau:</strong> "Schönwetterpilz". Weißer, abwischbarer Belag auf der Blattoberseite. Dringt nur in die Epidermis ein.</li>
-            <li><strong>Falscher Mehltau:</strong> "Schlechtwetterpilz". Weißlicher Pilzrasen meist an der Blattunterseite. Dringt tief ins Gewebe ein.</li>
-            <li><strong>Krautfäule (Phytophthora):</strong> Überlebt in Knollen/Boden, verbreitet sich bei Feuchtigkeit rasant.</li>
-        </ul>
-    </div>
+    <h2>Lerninhalte & Grundlagen</h2>
+    <p>Diese Seite unterstützt dich bei der Vorbereitung auf die Sachkundeprüfung gemäß Pflanzenschutzgesetz (PflSchG). Nutze das Quiz unten, um dein Wissen zu testen.</p>
 
-    <h2>Interaktives Quiz (85 Fragen)</h2>
     <div id="quiz-container">
         <div id="question-box">
             <h3 id="question-text">Lade Fragen...</h3>
@@ -109,7 +90,7 @@
         </div>
         <div id="feedback"></div>
         <div class="score-info">
-            Frage: <span id="current-q">1</span> / <span id="total-q">85</span> | Punkte: <span id="score">0</span>
+            Frage: <span id="current-q">1</span> / <span id="total-q">35</span> | Punkte: <span id="score">0</span>
         </div>
         <button id="next-btn" class="next-btn">Nächste Frage</button>
     </div>
@@ -117,7 +98,6 @@
 
 <script>
 const quizData = [
-    // Fragen 1-35 (Bestehend)
     { q: "Was ist das Hauptziel des integrierten Pflanzenschutzes (IPS)?", o: ["Ausrottung aller Schädlinge", "Einsatz chemischer Mittel auf das notwendige Maß beschränken", "Verzicht auf alle Technik", "Steigerung des Ertrags um jeden Preis"], a: 1, e: "IPS nutzt alle Möglichkeiten, um Chemie nur als letzte Instanz zu nutzen." },
     { q: "In welchem Rhythmus ist die Fortbildung zur Sachkunde Pflicht?", o: ["Alle 2 Jahre", "Alle 3 Jahre", "Alle 5 Jahre", "Einmalig"], a: 1, e: "Gesetzlich ist ein 3-Jahres-Zeitraum vorgeschrieben." },
     { q: "Was versteht man unter der Schadschwelle?", o: ["Erstes Auftreten eines Käfers", "Wirtschaftlich vertretbare Befallsgrenze", "Gesetzliche Spritzgrenze", "Maximaler Ernteverlust"], a: 1, e: "Ab hier sind Bekämpfungskosten niedriger als der drohende Schaden." },
@@ -152,8 +132,71 @@ const quizData = [
     { q: "Was sind abiotische Schäden?", o: ["Durch Pilze", "Durch Umwelt (Frost, Hitze)", "Durch Insekten", "Durch Bakterien"], a: 1, e: "Nicht-lebende Schadursachen." },
     { q: "Was ist ein Insektizid?", o: ["Gegen Gräser", "Gegen Insekten", "Gegen Algen", "Gegen Vögel"], a: 1, e: "Bekämpfung von Schadinsekten." },
     { q: "Zulassungsbehörde für PSM?", o: ["Finanzamt", "BVL", "Polizei", "Gesundheitsamt"], a: 1, e: "Bundesamt für Verbraucherschutz und Lebensmittelsicherheit." },
-    { q: "Was ist 'Integrierter Anbau'?", o: ["Nur Bio", "Ökonomie + Ökologie kombiniert", "Anbau im Haus", "Gentechnik"], a: 1, e: "Ganzheitlicher Ansatz im Pflanzenschutz." },
+    { q: "Was ist 'Integrierter Anbau'?", o: ["Nur Bio", "Ökonomie + Ökologie kombiniert", "Anbau im Haus", "Gentechnik"], a: 1, e: "Ganzheitlicher Ansatz im Pflanzenschutz." }
+];
 
-    // NEUE FRAGEN (36-85)
-    { q: "Was bedeutet 'NW 605'?", o: ["Abstand zu Wohngebäuden", "Abstandsauflage zu Gewässern", "Maximaler Windspeed", "Reinigungsanweisung"], a: 1, e: "NW-Sätze regeln den Schutz von Gewässern." },
-    { q: "Was ist der Wirkstoff eines Mittels?", o: ["Die Verpackung", "Der biologisch aktive Bestandteil", "Das Wasser zum Mischen", "Der Duftstoff"], a: 1, e: "Der Wirkstoff ist für
+let currentQuestion = 0;
+let score = 0;
+
+const questionText = document.getElementById('question-text');
+const optionsContainer = document.getElementById('options-container');
+const feedback = document.getElementById('feedback');
+const nextBtn = document.getElementById('next-btn');
+const currentQSpan = document.getElementById('current-q');
+const totalQSpan = document.getElementById('total-q');
+const scoreSpan = document.getElementById('score');
+
+function loadQuestion() {
+    const q = quizData[currentQuestion];
+    questionText.innerText = q.q;
+    optionsContainer.innerHTML = '';
+    feedback.innerText = '';
+    nextBtn.style.display = 'none';
+    totalQSpan.innerText = quizData.length;
+    currentQSpan.innerText = currentQuestion + 1;
+
+    q.o.forEach((option, index) => {
+        const btn = document.createElement('button');
+        btn.innerText = option;
+        btn.className = 'option-btn';
+        btn.onclick = () => checkAnswer(index);
+        optionsContainer.appendChild(btn);
+    });
+}
+
+function checkAnswer(index) {
+    const q = quizData[currentQuestion];
+    const buttons = optionsContainer.getElementsByTagName('button');
+    for (let btn of buttons) btn.disabled = true;
+
+    if (index === q.a) {
+        score++;
+        scoreSpan.innerText = score;
+        feedback.innerText = "✅ Richtig! " + q.e;
+        feedback.style.color = "green";
+        buttons[index].style.background = "#d4edda";
+    } else {
+        feedback.innerText = "❌ Falsch. " + q.e;
+        feedback.style.color = "red";
+        buttons[index].style.background = "#f8d7da";
+        buttons[q.a].style.background = "#d4edda";
+    }
+    nextBtn.style.display = 'block';
+}
+
+nextBtn.onclick = () => {
+    currentQuestion++;
+    if (currentQuestion < quizData.length) {
+        loadQuestion();
+    } else {
+        document.getElementById('question-box').innerHTML = "<h3>Quiz beendet! 🏆</h3>";
+        feedback.innerText = "Dein Ergebnis: " + score + " von " + quizData.length + " Punkten.";
+        nextBtn.style.display = 'none';
+    }
+};
+
+loadQuestion();
+</script>
+
+</body>
+</html>
