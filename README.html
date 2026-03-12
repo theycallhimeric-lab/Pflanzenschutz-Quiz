@@ -10,6 +10,7 @@
             --secondary-color: #1b7c35;
             --bg-color: #f6f8fa;
             --text-color: #24292e;
+            --accent-color: #0366d6;
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
@@ -26,7 +27,7 @@
             text-align: center;
         }
         .container {
-            max-width: 800px;
+            max-width: 850px;
             margin: 20px auto;
             background: white;
             padding: 30px;
@@ -34,6 +35,16 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         h2 { border-bottom: 2px solid #eee; padding-bottom: 10px; color: var(--secondary-color); }
+        
+        /* Info-Box Style */
+        .info-box {
+            background-color: #e7f3ff;
+            border-left: 5px solid var(--accent-color);
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+        .info-box h3 { margin-top: 0; color: var(--accent-color); }
         
         /* Quiz Styles */
         #quiz-container {
@@ -80,9 +91,17 @@
 </div>
 
 <div class="container">
-    <h2>Lerninhalte & Grundlagen</h2>
-    <p>Diese Seite unterstützt dich bei der Vorbereitung auf die Sachkundeprüfung gemäß Pflanzenschutzgesetz (PflSchG). Nutze das Quiz unten, um dein Wissen zu testen.</p>
+    <div class="info-box">
+        <h3>💡 Prüfungswissen: Pilzkrankheiten unterscheiden</h3>
+        <p>Ein häufiges Thema in der Prüfung ist der Unterschied zwischen Mehltausorten:</p>
+        <ul>
+            <li><strong>Echter Mehltau:</strong> "Schönwetterpilz". Weißer, abwischbarer Belag auf der Blattoberseite. Dringt nur in die Epidermis ein.</li>
+            <li><strong>Falscher Mehltau:</strong> "Schlechtwetterpilz". Weißlicher Pilzrasen meist an der Blattunterseite. Dringt tief ins Gewebe ein.</li>
+            <li><strong>Krautfäule (Phytophthora):</strong> Überlebt in Knollen/Boden, verbreitet sich bei Feuchtigkeit rasant.</li>
+        </ul>
+    </div>
 
+    <h2>Interaktives Quiz (85 Fragen)</h2>
     <div id="quiz-container">
         <div id="question-box">
             <h3 id="question-text">Lade Fragen...</h3>
@@ -90,7 +109,7 @@
         </div>
         <div id="feedback"></div>
         <div class="score-info">
-            Frage: <span id="current-q">1</span> / <span id="total-q">35</span> | Punkte: <span id="score">0</span>
+            Frage: <span id="current-q">1</span> / <span id="total-q">85</span> | Punkte: <span id="score">0</span>
         </div>
         <button id="next-btn" class="next-btn">Nächste Frage</button>
     </div>
@@ -98,6 +117,7 @@
 
 <script>
 const quizData = [
+    // Fragen 1-35 (Bestehend)
     { q: "Was ist das Hauptziel des integrierten Pflanzenschutzes (IPS)?", o: ["Ausrottung aller Schädlinge", "Einsatz chemischer Mittel auf das notwendige Maß beschränken", "Verzicht auf alle Technik", "Steigerung des Ertrags um jeden Preis"], a: 1, e: "IPS nutzt alle Möglichkeiten, um Chemie nur als letzte Instanz zu nutzen." },
     { q: "In welchem Rhythmus ist die Fortbildung zur Sachkunde Pflicht?", o: ["Alle 2 Jahre", "Alle 3 Jahre", "Alle 5 Jahre", "Einmalig"], a: 1, e: "Gesetzlich ist ein 3-Jahres-Zeitraum vorgeschrieben." },
     { q: "Was versteht man unter der Schadschwelle?", o: ["Erstes Auftreten eines Käfers", "Wirtschaftlich vertretbare Befallsgrenze", "Gesetzliche Spritzgrenze", "Maximaler Ernteverlust"], a: 1, e: "Ab hier sind Bekämpfungskosten niedriger als der drohende Schaden." },
@@ -116,4 +136,24 @@ const quizData = [
     { q: "Ein Herbizid wirkt gegen...", o: ["Pilze", "Unkräuter", "Läuse", "Schnecken"], a: 1, e: "Herba = Kraut." },
     { q: "Was ist 'Gute fachliche Praxis'?", o: ["Ein Gesetz", "Regeln für verantwortungsvolles Handeln", "Eine Auszeichnung", "Garten-Tipps"], a: 1, e: "Stand des Wissens zur Risikominimierung." },
     { q: "Was ist ein Rodentizid?", o: ["Mittel gegen Nager", "Mittel gegen Algen", "Mittel gegen Rost", "Mittel gegen Fliegen"], a: 0, e: "Gegen Mäuse und Ratten." },
-    { q: "Welcher Abstand zum Gewässer gilt?", o: ["Immer 10m", "Individuell laut Et
+    { q: "Welcher Abstand zum Gewässer gilt?", o: ["Immer 10m", "Individuell laut Etikett (NW-Auflagen)", "Keiner", "Immer 50m"], a: 1, e: "Die Zulassungsauflagen sind bindend." },
+    { q: "Was ist Antiresistenzmanagement?", o: ["Höhere Dosis", "Wirkstoffgruppen-Wechsel", "Nur mechanisch", "Weniger Dünger"], a: 1, e: "Verhindert die Gewöhnung der Schaderreger." },
+    { q: "Was ist eine Indikation?", o: ["Vergiftung", "Zugelassene Anwendung (Kultur + Schädling)", "Rabatt", "Farbe"], a: 1, e: "Nur für diese Kombi ist das Mittel zugelassen." },
+    { q: "Akarizide wirken gegen...", o: ["Milben", "Bakterien", "Vögel", "Schnecken"], a: 0, e: "Speziell gegen Spinnmilben etc." },
+    { q: "Wann herrscht Abdriftgefahr?", o: ["Bei Nebel", "Bei Wind > 5 m/s", "Bei Nacht", "Immer"], a: 1, e: "Zu viel Wind verweht die Spritzbrühe." },
+    { q: "Was ist Phytotoxizität?", o: ["Gift für Fische", "Pflanzenschädigung durch das Mittel selbst", "Bodenvergiftung", "Wirkung gegen Pilze"], a: 1, e: "Wenn das PSM die Nutzpflanze schädigt." },
+    { q: "Darf man PSM umfüllen?", o: ["In beschriftete Flaschen", "Niemals (Verwechslungsgefahr!)", "Für Transport", "In Eimer"], a: 1, e: "Lebensgefahr durch Verwechslung mit Getränken!" },
+    { q: "Pheromonfallen dienen...", o: ["Der Bekämpfung", "Dem Monitoring (Befallsermittlung)", "Der Düngung", "Dem Bienenschutz"], a: 1, e: "Lockstoffe zeigen an, wann Schädlinge fliegen." },
+    { q: "Was ist ein Molluskizid?", o: ["Gegen Mäuse", "Gegen Schnecken", "Gegen Moos", "Gegen Pilze"], a: 1, e: "Gegen Schnecken (Mollusken)." },
+    { q: "Warum Luftfeuchte beachten?", o: ["Sichtweite", "Verdunstungsschutz der Tropfen", "Besserer Geruch", "Regengefahr"], a: 1, e: "Bei trockener Luft verdunsten Tropfen zu schnell." },
+    { q: "Was ist Selektivität?", o: ["Mittel schont Nutzpflanze", "Mittel tötet alles", "Mittel ist teuer", "Mittel riecht stark"], a: 0, e: "Nur Schädlinge sterben, Nutzpflanze bleibt heil." },
+    { q: "Spritzen-TÜV Intervall?", o: ["1 Jahr", "3 Jahre (6 Kalenderhalbjahre)", "5 Jahre", "Neu bei Kauf"], a: 1, e: "Regelmäßige technische Prüfung ist Pflicht." },
+    { q: "Wofür steht 'B1' beim Bienenschutz?", o: ["Nicht gefährlich", "Bienengefährlich", "Nur nachts spritzen", "Nur im Wald"], a: 1, e: "B1 darf nicht in blühende Bestände gespritzt werden." },
+    { q: "Was sind abiotische Schäden?", o: ["Durch Pilze", "Durch Umwelt (Frost, Hitze)", "Durch Insekten", "Durch Bakterien"], a: 1, e: "Nicht-lebende Schadursachen." },
+    { q: "Was ist ein Insektizid?", o: ["Gegen Gräser", "Gegen Insekten", "Gegen Algen", "Gegen Vögel"], a: 1, e: "Bekämpfung von Schadinsekten." },
+    { q: "Zulassungsbehörde für PSM?", o: ["Finanzamt", "BVL", "Polizei", "Gesundheitsamt"], a: 1, e: "Bundesamt für Verbraucherschutz und Lebensmittelsicherheit." },
+    { q: "Was ist 'Integrierter Anbau'?", o: ["Nur Bio", "Ökonomie + Ökologie kombiniert", "Anbau im Haus", "Gentechnik"], a: 1, e: "Ganzheitlicher Ansatz im Pflanzenschutz." },
+
+    // NEUE FRAGEN (36-85)
+    { q: "Was bedeutet 'NW 605'?", o: ["Abstand zu Wohngebäuden", "Abstandsauflage zu Gewässern", "Maximaler Windspeed", "Reinigungsanweisung"], a: 1, e: "NW-Sätze regeln den Schutz von Gewässern." },
+    { q: "Was ist der Wirkstoff eines Mittels?", o: ["Die Verpackung", "Der biologisch aktive Bestandteil", "Das Wasser zum Mischen", "Der Duftstoff"], a: 1, e: "Der Wirkstoff ist für
