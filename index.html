@@ -1,276 +1,854 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pflanzenschutz-Master 150 | Prüfungstraining 3. Lehrjahr</title>
-    <style>
-        :root { --primary: #1b4332; --secondary: #2d6a4f; --accent: #d4a373; --bg: #f8f9fa; --white: #ffffff; --danger: #bc4749; --correct-bg: #d8f3dc; --wrong-bg: #f8d7da; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: var(--primary); margin: 0; line-height: 1.6; }
-        .header { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 30px 20px; text-align: center; border-bottom: 5px solid var(--accent); }
-        .container { max-width: 900px; margin: -20px auto 50px; padding: 0 20px; }
-        .card { background: var(--white); border-radius: 15px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .progress-container { width: 100%; background: #eee; height: 12px; border-radius: 10px; margin-bottom: 20px; overflow: hidden; }
-        #progress-bar { height: 100%; background: var(--accent); width: 0%; transition: width 0.3s; }
-        .meta { display: flex; justify-content: space-between; font-weight: bold; color: #666; margin-bottom: 10px; font-size: 0.9em; }
-        h2 { font-size: 1.3em; margin-bottom: 20px; min-height: 3em; color: var(--primary); border-left: 4px solid var(--accent); padding-left: 15px; }
-        .options-grid { display: grid; gap: 12px; }
-        .option-btn { background: white; border: 2px solid #dee2e6; padding: 15px; border-radius: 10px; cursor: pointer; text-align: left; font-size: 15px; transition: 0.2s; color: var(--primary); font-weight: 500; }
-        .option-btn:hover:not(:disabled) { border-color: var(--secondary); background: #f0fdf4; }
-        .option-btn.correct { background: var(--correct-bg) !important; border-color: var(--secondary) !important; color: #1b4332; }
-        .option-btn.wrong { background: var(--wrong-bg) !important; border-color: var(--danger) !important; color: #721c24; }
-        .feedback { margin-top: 20px; padding: 20px; border-radius: 8px; display: none; border-left: 6px solid; font-size: 1em; background: #fdfdfd; box-shadow: inset 0 0 5px rgba(0,0,0,0.05); }
-        .next-btn { display: none; width: 100%; padding: 18px; background: var(--primary); color: white; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; margin-top: 25px; font-size: 1.1em; transition: 0.3s; }
-        .next-btn:hover { background: #081c15; transform: translateY(-2px); }
-        .result-screen { text-align: center; padding: 20px; }
-        .score-big { font-size: 4em; font-weight: bold; color: var(--secondary); margin: 10px 0; }
-        .category-tag { background: #e9ecef; padding: 4px 10px; border-radius: 5px; text-transform: uppercase; letter-spacing: 1px; font-size: 0.75em; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pflanzenschutz-Profi | Prüfungstraining 3. Lehrjahr</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #1a3328;
+    --moss: #2d5a40;
+    --sage: #4a7c59;
+    --mint: #a8d5b5;
+    --cream: #f5f0e8;
+    --gold: #c9893a;
+    --gold-light: #e8b86d;
+    --earth: #6b4423;
+    --red: #8b2635;
+    --red-light: #fce8eb;
+    --green-light: #e8f5ec;
+    --white: #ffffff;
+    --text: #1a2620;
+    --text-muted: #5a6e62;
+    --border: #dce8e0;
+    --shadow: rgba(26,51,40,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--forest);
+    position: relative;
+    overflow: hidden;
+    padding: 48px 24px 40px;
+    text-align: center;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 20% 50%, rgba(74,124,89,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 70% at 80% 50%, rgba(201,137,58,0.15) 0%, transparent 60%);
+  }
+
+  .header-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+
+  .header-badge {
+    display: inline-block;
+    border: 1px solid rgba(201,137,58,0.5);
+    color: var(--gold-light);
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+    font-weight: 500;
+  }
+
+  .header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  .header h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .header p {
+    color: var(--mint);
+    font-size: 0.95rem;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+
+  /* leaf decoration */
+  .leaf-deco {
+    position: absolute;
+    font-size: 7rem;
+    opacity: 0.07;
+    pointer-events: none;
+  }
+  .leaf-deco.l1 { top: -10px; left: -10px; transform: rotate(-20deg); }
+  .leaf-deco.l2 { bottom: -20px; right: -10px; transform: rotate(40deg); }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    box-shadow: 0 2px 12px var(--shadow);
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .stat-value {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    color: var(--forest);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .stat-divider {
+    width: 1px;
+    background: var(--border);
+    align-self: stretch;
+  }
+
+  /* ── MAIN ── */
+  .main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+
+  /* ── PROGRESS ── */
+  .progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .progress-track {
+    flex: 1;
+    height: 6px;
+    background: var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--sage), var(--gold));
+    border-radius: 6px;
+    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+    width: 0%;
+  }
+
+  .progress-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  /* ── QUESTION CARD ── */
+  .q-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 36px 36px 28px;
+    box-shadow: 0 4px 24px var(--shadow);
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .q-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--moss), var(--gold));
+  }
+
+  .q-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .q-category {
+    background: var(--green-light);
+    color: var(--moss);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  .q-number {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-left: auto;
+  }
+
+  .q-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.22rem;
+    line-height: 1.5;
+    color: var(--forest);
+    margin-bottom: 28px;
+  }
+
+  /* ── ANSWER OPTIONS ── */
+  .options-grid {
+    display: grid;
+    gap: 10px;
+  }
+
+  .opt-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--cream);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 14px 18px;
+    cursor: pointer;
+    text-align: left;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--text);
+    transition: all 0.18s ease;
+    line-height: 1.4;
+  }
+
+  .opt-btn:hover:not(:disabled) {
+    background: var(--green-light);
+    border-color: var(--sage);
+    transform: translateX(4px);
+  }
+
+  .opt-letter {
+    min-width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: var(--border);
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.18s ease;
+    letter-spacing: 0.05em;
+  }
+
+  .opt-btn:hover:not(:disabled) .opt-letter {
+    background: var(--sage);
+    color: white;
+  }
+
+  .opt-btn.correct {
+    background: var(--green-light) !important;
+    border-color: var(--sage) !important;
+    transform: none;
+  }
+  .opt-btn.correct .opt-letter {
+    background: var(--moss) !important;
+    color: white !important;
+  }
+
+  .opt-btn.wrong {
+    background: var(--red-light) !important;
+    border-color: var(--red) !important;
+    transform: none;
+  }
+  .opt-btn.wrong .opt-letter {
+    background: var(--red) !important;
+    color: white !important;
+  }
+
+  .opt-btn:disabled { cursor: default; }
+
+  /* ── FEEDBACK ── */
+  .feedback {
+    display: none;
+    margin-top: 18px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    animation: slideUp 0.25s ease;
+  }
+
+  .feedback.correct-fb {
+    background: var(--green-light);
+    border-left: 4px solid var(--sage);
+    color: var(--forest);
+  }
+
+  .feedback.wrong-fb {
+    background: var(--red-light);
+    border-left: 4px solid var(--red);
+    color: #4a1020;
+  }
+
+  .feedback-icon { font-size: 1.1rem; margin-right: 6px; }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── NEXT BUTTON ── */
+  .next-btn {
+    display: none;
+    width: 100%;
+    padding: 16px;
+    background: var(--forest);
+    color: var(--white);
+    border: none;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 16px;
+    letter-spacing: 0.03em;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .next-btn::after {
+    content: '→';
+    margin-left: 8px;
+    display: inline-block;
+    transition: transform 0.2s ease;
+  }
+
+  .next-btn:hover {
+    background: var(--moss);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(26,51,40,0.25);
+  }
+
+  .next-btn:hover::after { transform: translateX(4px); }
+
+  /* ── RESULT SCREEN ── */
+  .result-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 48px 36px;
+    text-align: center;
+    box-shadow: 0 4px 24px var(--shadow);
+    border: 1px solid var(--border);
+    animation: fadeIn 0.4s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .result-icon { font-size: 3.5rem; margin-bottom: 16px; }
+
+  .result-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    color: var(--forest);
+    margin-bottom: 8px;
+  }
+
+  .score-display {
+    margin: 24px 0;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .score-number {
+    font-family: 'DM Serif Display', serif;
+    font-size: 5rem;
+    color: var(--moss);
+    line-height: 1;
+  }
+
+  .score-unit {
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  .result-breakdown {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    margin: 24px 0;
+    padding: 20px;
+    background: var(--cream);
+    border-radius: 12px;
+  }
+
+  .breakdown-item {
+    text-align: center;
+  }
+
+  .breakdown-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.8rem;
+    display: block;
+  }
+
+  .breakdown-num.good { color: var(--moss); }
+  .breakdown-num.bad { color: var(--red); }
+
+  .breakdown-label {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .result-msg {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 440px;
+    margin: 0 auto 28px;
+  }
+
+  .restart-btn {
+    display: inline-block;
+    padding: 16px 40px;
+    background: var(--forest);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .restart-btn:hover {
+    background: var(--moss);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(26,51,40,0.25);
+  }
+
+  /* ── INTRO SCREEN ── */
+  .intro-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 48px 36px;
+    text-align: center;
+    box-shadow: 0 4px 24px var(--shadow);
+    border: 1px solid var(--border);
+  }
+
+  .intro-icon { font-size: 3rem; margin-bottom: 16px; }
+
+  .intro-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    color: var(--forest);
+    margin-bottom: 12px;
+  }
+
+  .intro-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 28px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 32px;
+    text-align: left;
+  }
+
+  .topic-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--cream);
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--forest);
+  }
+
+  .topic-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--sage);
+    flex-shrink: 0;
+  }
+
+  .start-btn {
+    display: inline-block;
+    padding: 18px 52px;
+    background: var(--forest);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+
+  .start-btn:hover {
+    background: var(--moss);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(26,51,40,0.3);
+  }
+
+  /* responsive */
+  @media (max-width: 500px) {
+    .q-card { padding: 24px 20px 20px; }
+    .stats-bar { gap: 24px; }
+    .topics-grid { grid-template-columns: 1fr; }
+    .q-text { font-size: 1.08rem; }
+  }
+</style>
 </head>
 <body>
 
 <div class="header">
-    <h1>Pflanzenschutz-Profi 150 🌿</h1>
-    <p>Das ultimative Training für die Abschlussprüfung (3. Lehrjahr)</p>
+  <div class="leaf-deco l1">🌿</div>
+  <div class="leaf-deco l2">🌾</div>
+  <div class="header-inner">
+    <div class="header-badge">Abschlussprüfung · 3. Lehrjahr · Landwirt/in</div>
+    <h1>Pflanzenschutz-<em>Profi</em></h1>
+    <p>Prüfungstraining mit 150 Fragen aus Technik, Biologie, Recht & Wirkstoffen</p>
+  </div>
 </div>
 
-<div class="container">
-    <div class="card" id="quiz-container">
-        <div class="meta">
-            <span id="cat-label" class="category-tag">Bereich</span>
-            <span id="counter-label">Frage 1 / 30</span>
-        </div>
-        <div class="progress-container"><div id="progress-bar"></div></div>
-        
-        <div id="quiz-content">
-            <h2 id="q-text">Lade Fragenkatalog...</h2>
-            <div class="options-grid" id="options-container"></div>
-            <div id="feedback" class="feedback"></div>
-            <button id="next-btn" class="next-btn">Nächste Frage bestätigen →</button>
-        </div>
-    </div>
+<div class="stats-bar" id="stats-bar" style="display:none">
+  <div class="stat-item">
+    <span class="stat-value" id="stat-score">0</span>
+    <span class="stat-label">Richtig</span>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat-item">
+    <span class="stat-value" id="stat-wrong">0</span>
+    <span class="stat-label">Falsch</span>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat-item">
+    <span class="stat-value" id="stat-pct">–</span>
+    <span class="stat-label">Quote</span>
+  </div>
+</div>
+
+<div class="main" id="main-content">
+  <!-- Intro screen rendered by JS -->
 </div>
 
 <script>
 const fullPool = [
-    // --- BLOCK 1: TECHNIK & GRUNDLAGEN (1-40) ---
-    {c:"Technik",q:"Was bewirkt ein Tropfenaufprall bei zu hohem Spritzdruck (z.B. > 8 bar bei Flachstrahl)?",o:["Tropfen dringen tiefer in den Boden ein","Feintropfen prallen ab oder verwehen (Abdrift)","Die Brühe verdunstet sofort im Tank","Es entsteht Unterdruck in der Pumpe"],a:1,e:"Zu hoher Druck erzeugt einen hohen Feintropfenanteil, was die Abdrift massiv erhöht."},
-    {c:"Technik",q:"Welches Bauteil verhindert das Nachtropfen der Düsen nach dem Abschalten?",o:["Gleichdruckregler","Windkessel","Membran-Antitropf-Ventil","Injektoreinsatz"],a:2,e:"Das Membranventil schließt bei Druckabfall (meist unter 0,5 - 0,7 bar) federbelastet."},
-    {c:"Technik",q:"Welcher ISO-Farbcode markiert eine Düse der Größe 03?",o:["Rot","Gelb","Blau","Lila"],a:2,e:"ISO-Norm: 02=Gelb, 03=Blau, 04=Rot, 05=Braun."},
-    {c:"Technik",q:"Wie hoch ist die optimale Gestängehöhe über dem Zielbestand bei 110°-Düsen?",o:["25 cm","50 cm","75 cm","100 cm"],a:1,e:"Bei 50 cm überlappen sich die Spritzkegel für eine gleichmäßige Querverteilung perfekt."},
-    {c:"Technik",q:"Was ist die primäre Funktion der Einspülschleuse?",o:["Reinigung der Gummistiefel","Klumpenfreies Einspülen und Vorlösen von PSM","Messung der Windgeschwindigkeit","Kühlen der Spritzbrühe"],a:1,e:"Sie dient dem sicheren Anmischen, oft unterstützt durch eine Ringleitung oder Rotationsdüse."},
-    {c:"Technik",q:"Was misst man beim 'Auslitern' der Spritze?",o:["Den Restmengeninhalt im Tank","Den tatsächlichen Durchfluss in l/min pro Düse","Die Zapfwellendrehzahl","Den Druckverlust im Filter"],a:1,e:"Damit prüft man den Verschleiß der Düsen im Vergleich zu den Tabellenwerten."},
-    {c:"Technik",q:"Welchen physikalischen Effekt nutzt eine ID/IDK-Düse zur Abdriftminderung?",o:["Elektrostatische Aufladung","Venturi-Prinzip (Luftansaugung)","Zentrifugalkraft","Magnetische Ausrichtung"],a:1,e:"Durch einen Unterdruck im Düsenkörper wird Luft angesaugt, was grobe, blasige Tropfen erzeugt."},
-    {c:"Technik",q:"Warum darf die Rührwerk-Intensität bei abnehmendem Tankinhalt nicht auf Maximum bleiben?",o:["Der Traktor verliert an Leistung","Es kommt zu starker Schaumbildung","Der Filter verstopft","Die Düsen platzen"],a:1,e:"Zuviel Luft im Restvolumen führt zu Schaum, der die Pumpe lahmlegen kann."},
-    {c:"Technik",q:"Welcher Filter hat die feinste Maschenweite (kleinste M-Zahl)?",o:["Saugfilter","Düsenfilter","Einfüllsieb","Druckfilter"],a:1,e:"Der Düsenfilter sitzt direkt vor der Düsenöffnung und ist am feinsten."},
-    {c:"Technik",q:"Was fordert die JKI-Anerkennung für 'Verlustmindernde Geräte'?",o:["Rote Lackierung","Mindestens 50%, 75% oder 90% Abdriftminderung","Einen Wassertank über 4000L","Reifendruckregelanlage"],a:1,e:"Nur anerkannte Kombinationen aus Düse, Druck und Abstand dürfen bei NW-Auflagen genutzt werden."},
-    {c:"Technik",q:"Was regelt der Gleichdruckregler (Gleichdruckarmatur)?",o:["Den Luftdruck in den Reifen","Den Spritzdruck beim Abschalten von Teilbreiten","Die Motordrehzahl","Den Druck im Windkessel"],a:1,e:"Er hält den Druck im System konstant, auch wenn Teilbreiten weggeschaltet werden."},
-    {c:"Technik",q:"Wie verändert sich die Ausbringmenge (l/ha), wenn die Fahrgeschwindigkeit verdoppelt wird?",o:["Sie halbiert sich","Sie verdoppelt sich","Sie bleibt gleich","Sie sinkt um 10%"],a:0,e:"Doppelte Geschwindigkeit bei gleichem Durchfluss halbiert die Menge pro Hektar."},
-    {c:"Technik",q:"Wofür steht das 'K' in IDK-Düse?",o:["Keramik","Kompakt","Kaltwasser","Kunststoff"],a:1,e:"Sie hat eine kürzere Bauform als Standard-Injektordüsen und passt in Standardkappen."},
-    {c:"Technik",q:"Was tun bei einer verstopften Düse auf dem Feld?",o:["Mit dem Mund durchpusten","Mit Draht freistechen","Mit weicher Zahnbürste/Luft reinigen","In kochendes Wasser legen"],a:2,e:"Harte Gegenstände zerstören die Kalibrierung der Düse."},
-    {c:"Technik",q:"Welche Aufgabe hat der Windkessel an der Kolbenmembranpumpe?",o:["Trocknen der Düsen","Dämpfung der Druckstöße (Pulsationen)","Belüftung des Tanks","Druckerhöhung auf 20 bar"],a:1,e:"Er sorgt für einen gleichmäßigen, ruckelfreien Spritzstrahl."},
-    {c:"Technik",q:"Welches Bauteil schützt das Wassernetz beim Befüllen aus einem Hydranten?",o:["Systemtrenner (Rückflussverhinderer)","Saugfilter","Windkessel","Gleichdruckregler"],a:0,e:"Er verhindert, dass PSM in das öffentliche Trinkwassernetz zurückgesaugt wird."},
-    {c:"Technik",q:"Wie viel Restmenge ist gesetzlich nach dem Entleeren des Tanks maximal zulässig?",o:["0,5 % des Tankvolumens","5 % des Tankvolumens","10 Liter pauschal","Keine Vorgabe"],a:0,e:"Moderne Spritzen müssen so konstruiert sein, dass maximal 0,5% der Nennvolumens zurückbleiben."},
-    {c:"Technik",q:"Was ist die Innenreinigungsdüse?",o:["Eine Düse zur Gestängereinigung","Ein Rotationswäscher im Haupttank zur Reinigung der Tankinnenwände","Die Düse in der Einspülschleuse","Ein Hochdruckreiniger für die Traktorkabine"],a:1,e:"Sie spült den Tank nach der Anwendung mit Klarwasser aus dem Spülwassertank aus."},
-    {c:"Technik",q:"Worauf deutet ein unruhiger, zuckender Zeiger am Manometer hin?",o:["Defekte Düsen","Gerissene Pumpenmembran oder fehlerhafter Windkesseldruck","Zu langsames Fahren","Falsches Herbizid"],a:1,e:"Wenn der Windkessel keine Luft mehr hat, schlagen die Pumpenhübe direkt auf das Manometer durch."},
-    {c:"Technik",q:"Welche Spritzengröße benötigt gesetzlich einen Spülwassertank?",o:["Ab 100 Liter","Ab 400 Liter","Ab 1000 Liter","Alle Feld-PS-Geräte unabhängig vom Volumen"],a:1,e:"Ab 400 l Nennvolumen ist ein Spülwassertank mit mind. 10% des Nennvolumens Pflicht."},
-    {c:"Technik",q:"Wann muss die Spritze zur nächsten amtlichen Kontrolle, wenn die Plakette von 2024 ist?",o:["2025","2026","2027 (Erstes Halbjahr)","Es gibt keine Frist"],a:2,e:"Der Prüfintervall beträgt 6 Kalenderhalbjahre (also 3 Jahre)."},
-    {c:"Technik",q:"Was bedeutet 'V-Wert' bei der Prüfung der Querverteilung?",o:["Volumenstrom","Variationskoeffizient (muss unter 7% bzw. 9% liegen)","Verdunstungsrate","Verschleißgrenze"],a:1,e:"Er gibt die prozentuale Abweichung der Gleichmäßigkeit an."},
-    {c:"Technik",q:"Was ist der Vorteil von Doppelflachstrahldüsen?",o:["Halber Wasserverbrauch","Bessere Anlagerung an vertikalen Zielen (z.B. Ähren) durch zwei Spritzkegel","Sie brauchen keinen Filter","Sie reinigen sich selbst"],a:1,e:"Durch die Vor- und Rückwärtsneigung wird das Ziel (z.B. Ähre bei Fusarium) von zwei Seiten getroffen."},
-    {c:"Technik",q:"Wie groß sollte die Überlappung benachbarter Flachstrahldüsen (110°) am Zielbestand sein?",o:["Gar keine Überlappung","Ca. 10-20 %","Ca. 50-100 % (Doppelüberlappung)","Über 200 %"],a:2,e:"Die Spritzkegel müssen sich überschneiden, um Lücken in der Querverteilung zu vermeiden."},
-    {c:"Technik",q:"Was bewirkt eine Randdüse am Gestängeende?",o:["Sie spritzt weiter auf den Nachbaracker","Sie hat einen asymmetrischen Strahl, der hart an der Feldgrenze abschneidet","Sie erhöht den Druck","Sie dient nur der Optik"],a:1,e:"Sie verhindert den Übertritt von PSM auf Nichtkulturland oder Wege."},
-    {c:"Technik",q:"Warum nutzt man bei Herbiziden oft ein gröberes Tropfenspektrum als bei Kontakt-Fungiziden?",o:["Weil Herbizide billiger sind","Bodenherbizide/Systemische Mittel brauchen keine lückenlose Benetzung, Abdriftminderung geht vor","Gröbere Tropfen trocknen schneller","Das Gesetz verbietet feine Tropfen komplett"],a:1,e:"Kontaktfungizide brauchen hohe Tropfenzahlen für Bedeckung. Herbizide wirken oft systemisch oder über den Boden."},
-    {c:"Technik",q:"Was ist die Gefahr, wenn der Saugfilter nicht dicht verschlossen ist?",o:["Pumpe saugt Luft, baut keinen Druck auf und schäumt die Brühe auf","Der Tank platzt","Die Zapfwelle blockiert","Der Düsendruck verdoppelt sich"],a:0,e:"Die Pumpe zieht Nebenluft, der Spritzstrahl reißt ab."},
-    {c:"Technik",q:"Welches Material ist für Pflanzenschutztanks heute Standard?",o:["Aluminium","Polyethylen (PE) oder Glasfaser (GFK)","Kupfer","Holz"],a:1,e:"Kunststoffe sind glatt, chemikalienbeständig und leicht zu reinigen."},
-    {c:"Technik",q:"Wie kalibriert man das Gerät auf eine höhere Ausbringmenge ohne Düsenwechsel?",o:["Motor ausschalten","Spritzdruck erhöhen ODER Fahrgeschwindigkeit verringern","Rührwerk abstellen","Mehr Wasser in den Tank füllen"],a:1,e:"Druck hoch = mehr Durchfluss. Geschwindigkeit runter = mehr Zeit pro Fläche."},
-    {c:"Technik",q:"Welche Aufgabe hat das Tropfschutzventil (Anti-Drip)?",o:["Tropfengröße steuern","Auslaufen der Leitungen nach dem Abschalten verhindern","Druckminderung","Filterung der Brühe"],a:1,e:"Es schließt automatisch bei Druckabfall."},
-    {c:"Recht",q:"Was besagt das Minimierungsgebot (IPS)?",o:["Mittel dürfen maximal 10 Euro/ha kosten","PSM-Einsatz auf das notwendige Maß begrenzen","Spritzen nur nachts","Nur halbe Aufwandmengen nutzen"],a:1,e:"Integrierter Pflanzenschutz bedeutet: So wenig wie möglich, so viel wie nötig."},
-    {c:"Recht",q:"Wie lang ist die Aufbrauchfrist für PSM nach Widerruf der Zulassung i.d.R.?",o:["Sofortiges Verbot","Bis Ende des Kalenderjahres","18 Monate (max. 6 Monate Abverkauf + 12 Monate Aufbrauch)","5 Jahre"],a:2,e:"Gesetzlich geregelt, sofern kein akutes Risiko für Mensch/Umwelt besteht."},
-    {c:"Recht",q:"Was bedeutet die Kennzeichnung B1 auf einem Insektizid?",o:["Bienengefährlich: Darf nicht auf blühende Pflanzen/Unkräuter angewendet werden","Bienenfreundlich","Nur für Raps","Abstand zu Bienenstöcken 100m"],a:0,e:"B1 ist absolut tabu für blühende Bestände oder Bestände mit blühendem Unterwuchs."},
-    {c:"Umwelt",q:"Was regeln die 'NW'-Auflagen (z.B. NW 605)?",o:["Naturwald-Abstände","Nacht-Wirkung","Abstände zu Oberflächengewässern und Einsatz von Abdriftminderungstechnik","Nachbau-Wartezeiten"],a:2,e:"NW = Naturschutz Wasser. Sie fordern Abstände von z.B. 5, 10 oder 20 Metern zu Gewässern."},
-    {c:"Recht",q:"Wie lange muss ein Spritztagebuch (Dokumentation) aufbewahrt werden?",o:["1 Jahr","3 Jahre","5 Jahre","10 Jahre"],a:1,e:"Die Aufbewahrungsfrist nach PflSchG beträgt 3 Jahre ab dem Anwendungsjahr."},
-    {c:"Recht",q:"Wer erteilt in Deutschland die Zulassung für ein Pflanzenschutzmittel?",o:["Das Julius Kühn-Institut (JKI)","Das Bundesamt für Verbraucherschutz und Lebensmittelsicherheit (BVL)","Das Umweltbundesamt (UBA)","Die Landwirtschaftskammer"],a:1,e:"Das BVL entscheidet nach Prüfung durch JKI, UBA und BfR."},
-    {c:"Umwelt",q:"Was bedeutet das Gefahrensymbol GHS09 (Baum und toter Fisch)?",o:["Achtung, giftig für Fische (Gewässergefährdend)","Kann Holz angreifen","Verboten im Wald","Frostgefahr"],a:0,e:"Es warnt vor chronischer oder akuter Gefahr für die aquatische Umwelt."},
-    {c:"Recht",q:"Darf ein Landwirt PSM auf einem geschotterten Hofplatz anwenden?",o:["Ja, wenn Unkraut wächst","Ja, aber nur nachts","Nein, striktes Verbot auf Nichtkulturland ohne Ausnahmegenehmigung","Ja, mit Essig"],a:2,e:"Versiegelte Flächen leiten PSM direkt in die Kanalisation. Die Anwendung ist eine Straftat/Ordnungswidrigkeit."},
-    {c:"Umwelt",q:"Welche Windgeschwindigkeit gilt in der Regel als maximale Grenze für Spritzarbeiten?",o:["1 m/s","3 m/s","5 m/s (ca. 18 km/h)","10 m/s"],a:2,e:"Über 5 m/s ist die Abdrift auch mit Injektordüsen oft nicht mehr kontrollierbar."},
-    {c:"Umwelt",q:"Wo dürfen Reste von PSM-Spritzbrühen entsorgt werden?",o:["Im Hofgully","Über dem Miststreuer","Zehnfach verdünnt auf der zuvor behandelten Fläche ausbringen","Im Abwasser"],a:2,e:"Darf niemals in die Kanalisation! Stark verdünnt auf der Behandlungsfläche ausspritzen."},
+  // TECHNIK
+  {c:"Technik", q:"Welchen physikalischen Effekt nutzt eine Injektordüse (IDK/IDKN) zur Abdriftminderung und warum entstehen dabei gröbere Tropfen?", o:["Das Venturi-Prinzip: Ein Unterdruck saugt Luft in die Düse; die Luft-Flüssigkeits-Mischung erzeugt blasige, schwere Tropfen mit geringerer Flugfähigkeit","Elektrostatik: Die Düse lädt Tropfen negativ auf, sodass sie sich abstoßen und größer werden","Zentrifugalkraft: Schnelle Rotation schleudert die Flüssigkeit in großen Bogen","Kapillarwirkung: Enge Kanäle saugen Luft an und erzeugen Schaum"], a:0, e:"Injektordüsen (Venturi-Prinzip) saugen Umgebungsluft an. Luft und Flüssigkeit vermischen sich zu blasigen, deutlich schwereren Tropfen – diese haben eine viel geringere Abdriftneigung als feine Tropfen klassischer Flachstrahldüsen."},
+  {c:"Technik", q:"Was bewirkt ein zu hoher Spritzdruck (z. B. > 6 bar bei Flachstrahldüsen) in Bezug auf Abdrift und Wirkung?", o:["Er erzeugt einen hohen Feintropfenanteil, der stark abriftet und die effektiv ausgebrachte Menge auf dem Ziel reduziert","Er erhöht die Ausbringmenge und verbessert die Wirkung","Er kühlt die Brühe und verhindert Verdunstung","Er schaltet das Rührwerk automatisch ab"], a:0, e:"Höherer Druck zerschlägt die Flüssigkeit in immer feinere Tröpfchen. Feine Tropfen sind windanfällig und können sich in der Luft halten, bevor sie das Ziel erreichen."},
+  {c:"Technik", q:"Welcher ISO-Farbcode kennzeichnet eine Düsengröße '03' (0,3 US-gal/min bei 2,76 bar)?", o:["Rot","Gelb","Blau","Lila"], a:2, e:"ISO-Norm 10625: 01=Orange, 02=Gelb, 03=Blau, 04=Rot, 05=Braun, 06=Grau, 08=Weiß, 10=Gelb (höhere Reihe)."},
+  {c:"Technik", q:"Warum ist die Gestängehöhe bei 110°-Düsen auf exakt 50 cm über dem Zielbestand zu halten – was passiert bei zu großem oder zu geringem Abstand?", o:["Bei 50 cm überlappen sich die Spritzkegel dreifach (Tripel-Überlappung) für perfekte Querverteilung; zu viel Abstand erhöht Abdrift, zu wenig erzeugt Lücken","50 cm ist der gesetzliche Mindestabstand zum Boden","Bei 50 cm funktionieren Anti-Drift-Ventile am besten","Die Düsen erwärmen sich bei 50 cm optimal"], a:0, e:"110°-Düsen sind auf 50 cm Höhe ausgelegt, damit die Spritzkegel exakt mehrfach überlappen und eine gleichmäßige Querverteilung entsteht. Größerer Abstand = mehr Abdrift; kleiner Abstand = Lücken zwischen den Kegeln."},
+  {c:"Technik", q:"Was ist die Aufgabe des Windkessels an einer Kolbenmembranpumpe?", o:["Er dämpft die Druckpulse (Pulsationen) der Pumpe und sorgt für einen gleichmäßigen Spritzstrahl","Er speichert Überdruck und gibt ihn beim Bremsen frei","Er verbessert die Schaumbildung im Tank","Er regelt die Rührwerkdrehzahl"], a:0, e:"Kolbenmembranpumpen fördern stoßweise. Der Windkessel (ein Druckbehälter mit Luftpolster) puffert die Druckspitzen und gibt die gespeicherte Energie zwischen den Hüben ab – so fließt die Brühe gleichmäßig."},
+  {c:"Technik", q:"Welches Bauteil verhindert das Nachtropfen der Düsen, nachdem der Spritzdruck abgefallen ist?", o:["Druckbegrenzungsventil","Gleichdruckregler","Membran-Antitropfventil (Anti-Drip)","Saugfilter"], a:2, e:"Das Membranventil in der Düsenkappe schließt bei einem Druckabfall unter ca. 0,5–0,7 bar federbelastet – kein Nachtropfen auf der Wendfahrt, keine Schäden durch Doppelüberlappung."},
+  {c:"Technik", q:"Wie halbiert man die Ausbringmenge (l/ha), ohne die Düsen zu wechseln?", o:["Fahrgeschwindigkeit verdoppeln ODER Spritzdruck halbieren","Motor ausschalten und rollen lassen","Tank halb leeren","Rührwerk abschalten"], a:0, e:"Ausbringmenge = Durchfluss ÷ Fahrgeschwindigkeit × Korrekturfaktor. Verdoppelt man die Geschwindigkeit, wird auf der gleichen Fläche pro Zeiteinheit doppelt so schnell gefahren, also halbiert sich die Menge."},
+  {c:"Technik", q:"Ab welchem Nennvolumen ist ein Spülwassertank (mind. 10 % des Nennvolumens) gesetzlich vorgeschrieben?", o:["Ab 100 Liter","Ab 400 Liter","Ab 1000 Liter","Alle Feldspritzen, unabhängig vom Volumen"], a:1, e:"Die Pflanzenschutzgeräte-Verordnung verlangt ab 400 Litern Nennvolumen einen separaten Spülwassertank mit mind. 10 % des Nennvolumens zur Feldvorreinigung."},
+  {c:"Technik", q:"In welchem Intervall müssen Pflanzenschutzgeräte (Feldspritzen) nach der aktuellen Pflanzenschutzgeräte-Verordnung amtlich geprüft werden?", o:["Jährlich","Alle 2 Jahre","Alle 3 Jahre (6 Kalenderhalbjahre)","Alle 5 Jahre"], a:2, e:"Der Prüfintervall beträgt 3 Jahre (6 Kalenderhalbjahre). Eine gültige Plakette von 2024 bedeutet: nächste Prüfung spätestens im 1. Halbjahr 2027."},
+  {c:"Technik", q:"Was misst der Variationskoeffizient (V-Wert) bei der Spritzen-Prüfung, und welcher Grenzwert gilt?", o:["Die Gleichmäßigkeit der Flüssigkeitsverteilung über die Arbeitsbreite; Grenzwert ≤ 7 % (Neugeräte) bzw. ≤ 9 % (ältere Geräte)","Den Druckunterschied zwischen Pumpe und Düse; Grenzwert 0,5 bar","Die Verdunstungsrate; Grenzwert 5 %","Die Schäumbarkeit der Brühe; kein Grenzwert"], a:0, e:"Ein V-Wert über 7 % (Neugeräte) bzw. 9 % (Gebrauchtgeräte) zeigt ungleichmäßige Querverteilung – der Bestand wird fleckig behandelt, Wirkungslücken entstehen."},
+  {c:"Technik", q:"Was bewirkt ein undichter Saugfilter (Nebenluft)?", o:["Die Pumpe zieht Luft, baut keinen stabilen Druck auf, der Spritzstrahl reißt ab und schäumt","Der Filter gibt Druck frei und die Spritze drückt zu viel aus","Das Rührwerk läuft zu schnell","Der Tank überfüllt sich"], a:0, e:"Nebenluft am Saugfilter führt zu Kavitation in der Pumpe. Ohne stabilen Unterdruck bricht die Förderleistung zusammen – Spritzstrahl wird ungleichmäßig oder reißt ab."},
+  {c:"Technik", q:"Was ist die Funktion des Gleichdruckreglers (Gleichdruckarmatur) beim Abschalten von Teilbreiten?", o:["Er hält den Druck im aktiven Teil der Leitung konstant, auch wenn Teilbreiten weggeschaltet werden","Er regelt die Pumpenleistung","Er misst die Windgeschwindigkeit","Er filtert die Brühe"], a:0, e:"Wenn Teilbreiten abgeschaltet werden, würde der Druck im System steigen. Der Gleichdruckregler leitet überschüssige Flüssigkeit in den Tank zurück und hält den Düsendruck stabil."},
+  {c:"Technik", q:"Für was steht die JKI-Anerkennung von 'Verlustmindernden Geräten' und welche Minderungsklassen gibt es?", o:["Anerkannte Gerätekombinationen aus Düse, Druck und Abstand, die 50, 75 oder 90 % weniger Abdrift als Referenztechnik erzeugen","Eine staatliche Subvention für neue Spritzen","Ein optionales Gütesiegel ohne rechtliche Relevanz","Nur relevant für den Weinbau"], a:0, e:"Nur JKI-anerkannte Kombinationen aus Düsentyp, Betriebsdruck und Gestängehöhe dürfen bei NW-Auflagen (z. B. NW 603, NW 605) zur Abstandsreduzierung genutzt werden."},
+  {c:"Technik", q:"Wie verhält sich die Ausbringmenge (l/ha), wenn die Fahrgeschwindigkeit von 8 km/h auf 10 km/h erhöht wird (alle anderen Werte gleich)?", o:["Die Menge sinkt um 20 %","Die Menge steigt um 20 %","Die Menge bleibt gleich","Die Menge halbiert sich"], a:0, e:"Ausbringmenge ~ 1/Geschwindigkeit. Wenn die Geschwindigkeit um 25 % steigt (8→10 km/h), sinkt die Menge um 20 % (10/8 = 1,25 → 1/1,25 = 0,8)."},
+  {c:"Technik", q:"Welches Bauteil schützt das öffentliche Trinkwassernetz beim Befüllen aus dem Hydranten vor PSM-Kontamination?", o:["Systemtrenner (Rückflussverhinderer BA oder CA)","Druckbegrenzungsventil","Saugfilter","Windkessel"], a:0, e:"Der Systemtrenner verhindert hydraulisch, dass Pflanzenschutzmittel durch Druckabfall im Netz in die öffentliche Wasserleitung zurückgesaugt werden (gesetzliche Pflicht)."},
 
-    // --- BLOCK 2: BIOLOGIE & ACKERBAU (41-110) ---
-    {c:"Biologie",q:"Woran erkennt man Gelbrost (Puccinia striiformis) im Weizen?",o:["Braune, runde Flecken","Leuchtend gelbe Sporenlager, die schnur- bzw. streifenförmig entlang der Blattadern angeordnet sind","Weißer, mehliger Belag","Schwarze Ähren"],a:1,e:"Im Gegensatz zum Braunrost wächst Gelbrost in deutlichen Streifen."},
-    {c:"Biologie",q:"Welches Stadium ist BBCH 51 im Getreide?",o:["Bestockung","Schossen","Beginn Ährenschieben","Milchreife"],a:2,e:"BBCH 51 ist der Beginn des Ährenschiebens. Wichtig für späte Fungizidmaßnahmen (Ährenbehandlung)."},
-    {c:"Biologie",q:"Welcher Schädling ist Hauptüberträger des Gelbverzwergungsvirus (BYDV) in Gerste?",o:["Getreidehähnchen","Fritfliege","Blattläuse","Sattelmücke"],a:2,e:"Blattläuse saugen im Herbst an Ausfallgetreide und übertragen das Virus auf die junge Wintergerste."},
-    {c:"Biologie",q:"Wodurch zeichnet sich die Schadwirkung des Ackerfuchsschwanzes aus?",o:["Er ist giftig","Massive Konkurrenz um Licht/Nährstoffe und extrem hohes Resistenzrisiko gegen HRAC A und B Herbizide","Er überträgt Viren","Er schädigt die Wurzeln"],a:1,e:"Ackerfuchsschwanz ist das Problem-Ungras Nummer 1 in Wintergetreide-Fruchtfolgen."},
-    {c:"Biologie",q:"Wie kann man Windhalm und Ackerfuchsschwanz im vegetativen Stadium (ohne Rispe) unterscheiden?",o:["An der Blattfarbe","An der Ligula (Blatthäutchen): AFU hat kein Blatthäutchen","AFU hat keine Blattöhrchen und eine lange, oft gezähnte Ligula. Windhalm hat eine sehr lange, tief gespaltene Ligula.","Gar nicht"],a:2,e:"Die genaue Unterscheidung des Blatthäutchens ist entscheidend für die Herbizidwahl."},
-    {c:"Biologie",q:"Was verursacht die 'Taubährigkeit' oder Rotfärbung einzelner Ährchen im Weizen?",o:["Mehltau","Fusarium-Arten","Halmbruch","Manganmangel"],a:1,e:"Fusarium-Pilze infizieren die Ähre zur Blüte und bilden Mykotoxine (DON)."},
-    {c:"Biologie",q:"Wann ist der optimale Zeitpunkt für eine Rapsglanzkäfer-Behandlung?",o:["Nach der Ernte","Im vollen Blütestadium","Im Knospenstadium (BBCH 51-59), wenn die Schadschwelle überschritten ist","Beim Auflaufen"],a:2,e:"Der Käfer beißt in die geschlossenen Knospen, um an Pollen zu gelangen. In der offenen Blüte ist er harmlos."},
-    {c:"Biologie",q:"Welches Blattmerkmal kennzeichnet Klettenlabkraut?",o:["Ovale, glatte Blätter","Blattquirle mit rauen, rückwärts gerichteten Stachelhärchen","Gelbe Blüten im Herbst","Dreieckige Blätter"],a:1,e:"Es klettert an Getreide hoch und führt zu massivem Lager und Ernteerschwernissen."},
-    {c:"Biologie",q:"Was ist die Ursache für die 'Kohlhernie' im Raps?",o:["Ein Käfer","Ein Virus","Ein bodenbürtiger Pilz (Schleimpilz), der knollige Wurzelwucherungen verursacht","Stickstoffmangel"],a:2,e:"Enge Raps-Fruchtfolgen fördern Plasmodiophora brassicae. Einzige Lösung: Anbaupausen."},
-    {c:"Biologie",q:"Wann bekämpft man den Maiszünsler idealerweise?",o:["Wenn er ausgewachsen ist","Wenn die Larven schlüpfen und bevor sie sich in den Stängel einbohren","Bei der Saat","Im Winter"],a:1,e:"Sobald die Raupe im Stängel ist, kann sie chemisch nicht mehr erreicht werden."},
-    {c:"Biologie",q:"Woran erkennt man 'Echten Mehltau'?",o:["Schwarze Flecken","Grau-weißliches, wattiges Pilzmyzel auf der Blattoberfläche, abwischbar","Orange Pusteln unter dem Blatt","Nekrotische Spitzen"],a:1,e:"Er entzieht der Pflanze Nährstoffe und assimiliert an der Blattoberfläche."},
-    {c:"Biologie",q:"Welche Kultur wird primär von der Kraut- und Knollenfäule (Phytophthora infestans) befallen?",o:["Rüben","Mais","Kartoffeln","Weizen"],a:2,e:"Phytophthora ist die wirtschaftlich bedeutendste Kartoffelkrankheit weltweit."},
-    {c:"Biologie",q:"Was versteht man unter 'Metabolischer Resistenz' bei Unkräutern?",o:["Das Unkraut wächst schneller","Die Zielstruktur (Target-Site) verändert sich","Die Pflanze baut den Wirkstoff im Zellinneren ab/entgiftet ihn, bevor er wirkt","Das Unkraut schließt die Spaltöffnungen"],a:2,e:"Metabolische Resistenz ist besonders gefährlich, da sie oft mehrere Wirkstoffklassen betrifft."},
-    {c:"Biologie",q:"Was ist das Ziel des 'Blindstriegelns'?",o:["Bodenverdichtung lösen","Verschütten und Herausreißen von Unkrautkeimlingen VOR dem Auflaufen der Kulturpflanze","Dünger einarbeiten","Fahrspuren beseitigen"],a:1,e:"Mechanische Unkrautbekämpfung im Keimblattstadium, oft im Bio-Anbau genutzt."},
-    {c:"Biologie",q:"Woran erkennt man Septoria tritici (Blattdürre) im Weizen?",o:["Runde rote Punkte","Ovale bis unregelmäßige nekrotische (braune) Flecken mit schwarzen Fruchtkörpern (Pyknidien)","Weißer Pilzrasen","Abgeknickte Halme"],a:1,e:"Die winzigen schwarzen Pyknidien in den hellen Flecken sind das Hauptmerkmal."},
-    {c:"Biologie",q:"Welches Unkraut gilt im Mais als schwer bekämpfbarer Problemfall (Wurzelunkraut)?",o:["Gänsefuß","Ackerwinde oder Quecke","Vogelmiere","Taubnessel"],a:1,e:"Ausdauernde Unkräuter treiben aus tiefen Rhizomen wieder aus."},
-    {c:"Biologie",q:"Welche Gruppe von Fungiziden hat eine kurative (heilende) und eradikative (abstoppende) Wirkung?",o:["Kontaktfungizide","Azole (Triazole) und Amine","Schwefel","Kupfer"],a:1,e:"Systemische Fungizide dringen ins Blatt ein und bekämpfen den Pilz im Myzelstadium."},
-    {c:"Biologie",q:"Was versteht man unter dem Begriff 'Schadschwelle'?",o:["Die maximale Spritzmenge","Die Befallsdichte, bei der der wirtschaftliche Schaden höher ist als die Kosten der Bekämpfung","Die Grenze zum Nachbarfeld","Der Zeitpunkt der Ernte"],a:1,e:"Grundprinzip des IPS: Nicht jeder Befall muss bekämpft werden, nur der wirtschaftlich relevante."},
-    {c:"Biologie",q:"Welche Krankheit verursacht der Pilz Cercospora beticola?",o:["Kohlhernie","Blattfleckenkrankheit bei Zuckerrüben","Rost beim Weizen","Kartoffelfäule"],a:1,e:"Kleine runde Flecken mit rotem Rand auf den Rübenblättern mindern den Zuckerertrag extrem."},
-    {c:"Biologie",q:"Wie nennt man die Übertragung von Viren durch tierische Schädlinge?",o:["Mutation","Vektoren-Übertragung","Injektion","Transpiration"],a:1,e:"Blattläuse, Zikaden oder Nematoden fungieren oft als Vektoren."},
-    {c:"Biologie",q:"Woran erkennt man einen Befall durch den Großen Rapsstängelrüssler?",o:["Löcher in den Blättern","Einstichstellen unterhalb der Triebspitze, oft S-förmige Stängelverkrümmung und aufplatzende Stängel","Schwarze Wurzeln","Leere Schoten"],a:1,e:"Die Larven fressen das Stängelmark, der Stängel reißt im Frühjahr auf."},
-    {c:"Biologie",q:"Welche Bodenbearbeitung fördert die Ausbreitung von Fusarium-Pilzen in der Fruchtfolge Mais-Weizen?",o:["Pflug","Mulchsaat ohne Häckseln der Maisstoppeln","Grubber","Kreiselegge"],a:1,e:"Maisstoppeln an der Bodenoberfläche sind die Haupt-Infektionsquelle für Fusarium im Weizen."},
-    {c:"Biologie",q:"Welcher Wirkstoff (Herbizid) ist bekannt dafür, über das Blatt systemisch in die Wurzeln verlagert zu werden (Totalherbizid)?",o:["Pendimethalin","Glyphosat","Metamitron","Prosulfocarb"],a:1,e:"Glyphosat blockiert ein Enzym und verteilt sich in der gesamten Pflanze bis in die Rhizome."},
-    {c:"Biologie",q:"Was ist die Besonderheit bei Bodenherbiziden?",o:["Sie wirken nur bei über 25 Grad","Sie benötigen ausreichende Bodenfeuchtigkeit für die Ausbildung eines Wirkstofffilms","Sie wirken gegen Pilze","Sie verätzen nur die Blattspitzen"],a:1,e:"Auf trockenen Böden bleibt der Wirkstoff liegen und wird von flachkeimenden Unkräutern nicht aufgenommen."},
-    {c:"Biologie",q:"Welches Entwicklungsstadium (BBCH) bezeichnet den Reihenschluss bei der Kartoffel?",o:["BBCH 09","BBCH 15","BBCH 39","BBCH 89"],a:2,e:"Bei BBCH 39 berühren sich die Pflanzen benachbarter Reihen, das Mikroklima für Pilze wird optimal."},
-    {c:"Biologie",q:"Welche Gruppe von Insektiziden wird weltweit aufgrund der Bienengefährdung stark eingeschränkt (z.T. verboten)?",o:["Pyrethroide","Neonikotinoide","Karbamate","Wuchsstoffe"],a:1,e:"Neonikotinoide haben langanhaltende, systemische Wirkung und finden sich oft in Pollen und Nektar."},
-    {c:"Biologie",q:"Woran erkennt man den Rapserdfloh-Schaden im Herbst?",o:["Ganze Pflanze welkt","Feiner Lochfraß in den Keim- und Laubblättern (wie Schrotkugeln)","Rote Blattadern","Gelbe Blüten"],a:1,e:"Die Larven minieren später in den Blattstielen, aber der Lochfraß der adulten Käfer ist das erste Symptom."},
-    {c:"Biologie",q:"Was ist ein 'Falsches Saatbett'?",o:["Falsche Saattiefe","Frühe Saatbettbereitung zur Provokation des Unkrautauflaufs, gefolgt von mechanischer/chemischer Beseitigung VOR der eigentlichen Saat","Säen in Stroh","Aussaat der falschen Kultur"],a:1,e:"Eine sehr effektive ackerbauliche Maßnahme zur Reduktion des Samenvorrates im Boden (z.B. bei AFU)."},
-    {c:"Biologie",q:"Was bewirken 'Strobilurine' bei Pilzen?",o:["Zerstören die Zellwand","Hemmen die mitochondriale Atmung (Energiegewinnung)","Verhindern die Sporenbildung komplett","Töten Viren"],a:1,e:"Sie haben einen Greening-Effekt, sind aber hochgradig resistenzgefährdet (FRAC Gruppe 11)."},
-    {c:"Biologie",q:"Welcher Schädling tritt oft an trocken-warmen Feld-Rändern im Getreide auf und saugt Blätter aus (Silberflecken)?",o:["Schnecke","Getreidehähnchen (Käfer/Larve)","Drahtwurm","Erdraupe"],a:1,e:"Die Larven fressen Streifen in die Blätter, es bleibt nur die Unterhaut (Fensterfraß)."},
-    {c:"Biologie",q:"Welches Symptom ist typisch für die Netzfleckenkrankheit (Pyrenophora teres) in Gerste?",o:["Längs- und Querneunebildung (leiterartig) auf dem Blatt","Rote Pusteln","Weißer Belag","V-förmige Vergilbung"],a:0,e:"Netzflecken zeigen charakteristische dunkle Längs- und Querstreifen, die wie ein Netz wirken."},
-    {c:"Wirkstoffe",q:"Was bedeutet 'HRAC Gruppe A' bei Herbiziden?",o:["Wuchsstoffe","ACCase-Hemmer (Gräsermittel)","Bodenherbizide","Totalherbizide"],a:1,e:"Gruppe A umfasst 'Fops' und 'Dims', die gezielt gegen Gräser wirken, aber hochgradig resistenzgefährdet sind."},
-    {c:"Biologie",q:"Woran erkennt man den Befall durch die Fritfliege im Mais (Jugendentwicklung)?",o:["Ganze Pflanze knickt um","Blätter sind verdreht, verklebt oder weisen lochartige Fraßstellen auf","Wurzeln sind blau","Maiskolben fehlen"],a:1,e:"Die Larve frisst im Herzblatt, was zu Deformationen und dem typischen 'Peitschensymptom' führt."},
-    {c:"Recht",q:"Ab welcher Hangneigung gelten verschärfte Abstandsauflagen zum Schutz vor Abschwemmung?",o:["Ab 1%","Ab 2% (je nach Bundesland/Auflage oft ab 2-4%)","Erst ab 15%","Nur im Gebirge"],a:1,e:"Hanganwendungsauflagen dienen dem Schutz von Gewässern vor PSM-Eintrag durch Erosion/Abschwemmung."},
-    {c:"Biologie",q:"Was ist der 'Grüne Punkt' bei der Bekämpfung von Unkräutern in Rüben (NAK)?",o:["Ein Logo auf der Flasche","Der ideale Keimblatt-Zeitpunkt des Unkrauts für höchste Wirksamkeit","Ein Düngersymbol","Erntebeginn"],a:1,e:"NAK-Maßnahmen wirken am besten, wenn die Unkräuter winzig (Fadenstadium bis Keimblatt) sind."},
-    {c:"Technik",q:"Was ist der 'Zulassungsbeendigungstermin'?",o:["Tag der Ernte","Datum, ab dem ein Mittel nicht mehr im Handel verkauft werden darf","Datum des Spritzen-TÜVs","Ende der Spritzsaison"],a:1,e:"Nach diesem Termin darf der Handel das Mittel nicht mehr abgeben; es folgt die Abverkaufs- und Aufbrauchfrist."},
-    {c:"Biologie",q:"Welche Krankheit verursacht der Pilz Ramularia collo-cygni?",o:["Rost","Sprenkelkrankheit der Gerste","Mehltau","Halmbruch"],a:1,e:"Typisch sind kleine, rechteckige, dunkelbraune Flecken, oft ausgelöst durch Stress (UV-Licht)."},
-    {c:"Wirkstoffe",q:"Wie wirken Sulfonylharnstoffe (HRAC Gruppe B)?",o:["Als Kontaktgift","Systemisch über Wurzel und Blatt (ALS-Hemmer)","Nur über die Wachsschicht","Durch Photosynthese-Stopp"],a:1,e:"Sie stoppen die Zellteilung durch Hemmung des Enzyms Acetolactat-Synthase."},
-    {c:"Biologie",q:"Welcher Schädling verursacht 'Fensterfraß' an Getreideblättern?",o:["Blattlaus","Getreidehähnchen-Larve","Wühlmaus","Drahtwurm"],a:1,e:"Die Larven fressen das Blattgewebe zwischen den Adern aus, die oberste Haut bleibt als weißes 'Fenster' stehen."},
-    {c:"Umwelt",q:"Was ist ein 'Bio-Bed'?",o:["Ein Schlafplatz für Nützlinge","Ein Filtersystem aus Erde/Stroh zur biologischen Reinigung von PSM-haltigem Waschwasser","Ein Öko-Feld","Ein Insektenhotel"],a:1,e:"Mikroorganismen im Substrat bauen PSM-Rückstände sicher ab."},
+  // RECHT
+  {c:"Recht", q:"Was besagt das Minimierungsgebot im Pflanzenschutzgesetz und worauf zielt der Integrierte Pflanzenschutz (IPS)?", o:["PSM-Einsatz auf das notwendige Maß beschränken; chemische Bekämpfung erst nach Ausschöpfung anderer Maßnahmen","PSM-Einsatz so oft wie möglich zur Prophylaxe","Nur Mittel der niedrigsten Preisklasse verwenden","Spritzen nur in den Abendstunden"], a:0, e:"Das Minimierungsgebot verlangt, dass PSM nur so viel und so oft eingesetzt werden, wie wirklich notwendig. Der IPS priorisiert ackerbauliche, biologische und mechanische Maßnahmen vor der Chemie."},
+  {c:"Recht", q:"Wie lang ist die gesetzliche Aufbrauchfrist nach dem Widerruf der Zulassung eines Pflanzenschutzmittels (Regelfall)?", o:["Sofortiges Verkaufs- und Anwendungsverbot","6 Monate Abverkauf + 12 Monate Aufbrauch nach Widerrufsdatum","Bis Ende des übernächsten Kalenderjahres","5 Jahre, sofern kein Umweltrisiko besteht"], a:1, e:"Die Standardregelung: 6 Monate darf der Handel noch abgeben, danach 12 Monate darf der Landwirt vorhandene Bestände aufbrauchen. Bei akutem Risiko kann die Behörde kürzere Fristen setzen."},
+  {c:"Recht", q:"Was bedeutet die Bienenschutz-Einstufung 'B1' auf einem Insektizid?", o:["Das Mittel ist absolut bienengefährlich und darf nicht auf blühende Pflanzen oder blühenden Unterwuchs ausgebracht werden","Das Mittel ist für Bienen unbedenklich","B1 erlaubt Anwendung am frühen Morgen vor Bienenflug","B1 gilt nur für Hummeln, nicht für Honigbienen"], a:0, e:"B1 = höchste Gefahrenklasse. Jede Anwendung auf blühende Bestände oder Bestände mit blühendem Unkraut ist verboten – unabhängig von Tageszeit oder Witterung."},
+  {c:"Recht", q:"Wie lange muss das Pflanzenschutz-Anwendertagebuch (Dokumentation) aufbewahrt werden?", o:["1 Jahr","3 Jahre ab dem Anwendungsjahr","5 Jahre","10 Jahre"], a:1, e:"Das PflSchG (§ 67 Abs. 3) schreibt 3 Jahre Aufbewahrung ab dem Ende des Kalenderjahres der Anwendung vor. Die Pflicht gilt für alle beruflichen Anwender."},
+  {c:"Recht", q:"Welche Behörde erteilt die Zulassung für Pflanzenschutzmittel in Deutschland?", o:["Das Julius Kühn-Institut (JKI)","Das Bundesamt für Verbraucherschutz und Lebensmittelsicherheit (BVL)","Das Umweltbundesamt (UBA)","Die zuständige Landwirtschaftsbehörde des Bundeslandes"], a:1, e:"Das BVL entscheidet über die Zulassung, nachdem JKI (Wirksamkeit/Rückstände), UBA (Umweltwirkungen) und BfR (Verbraucher-/Anwenderschutz) fachlich bewertet haben."},
+  {c:"Recht", q:"Warum ist die Anwendung von Pflanzenschutzmitteln auf einer asphaltierten Einfahrt oder einem gepflasterten Hofplatz in Deutschland verboten?", o:["Weil versiegelte Flächen als Nichtkulturland gelten und PSM direkt in die Kanalisation gespült werden – das ist eine Straftat","Weil dort keine Unkräuter wachsen","Weil der Asphalt die Düsen beschädigt","Weil der Boden zu hart ist"], a:0, e:"§ 12 PflSchG verbietet die Anwendung auf befestigten Flächen außerhalb der Landwirtschaft ausdrücklich. PSM auf Asphalt können nicht abgebaut werden und gelangen ungefiltert ins Grundwasser oder in Gewässer."},
+  {c:"Recht", q:"Was besagt die 'NW 605'-Auflage, und wie kann der Abstand durch verlustmindernde Technik reduziert werden?", o:["Abstand von 5 m zu Oberflächengewässern; Reduzierung auf 0 m mit 90 % abdriftmindernder Technik möglich","Abstand von 20 m zu Naturwäldern; nicht reduzierbar","Abstand von 1 m zum Nachbarfeld; immer einzuhalten","Abstand von 100 m zu Bienenstöcken"], a:0, e:"NW 605 = 5 m Abstand zu Gewässern. Mit anerkannter 90-%-Abdriftminderungstechnik kann dieser auf 0 m reduziert werden (Eintrag ins Spritztagebuch Pflicht)."},
+  {c:"Recht", q:"Was bedeutet 'MRL' (Maximum Residue Level) und welche Konsequenz hat eine Überschreitung?", o:["Gesetzlich festgelegte Rückstandshöchstmenge eines PSM in Lebensmitteln; bei Überschreitung darf die Ware nicht vermarktet werden","Maximale Regenmenge, ab der nicht gespritzt werden darf","Mindest-Reifen-Luftdruck für Spritzen","Mittel-Resistenz-Liste des JKI"], a:0, e:"MRL-Werte schützen Verbraucher. Werden sie überschritten, muss die Charge vernichtet oder umgewidmet werden. Strafrechtliche Konsequenzen für den Erzeuger sind möglich."},
 
-    // --- BLOCK 3: SPEZIALWISSEN (111-150) ---
-    {c:"Biologie",q:"Was ist die Hauptursache für 'Mutterkorn' (Claviceps purpurea) im Roggen?",o:["Zu viel Dünger","Feuchte Witterung zur Blüte und mangelnde Bestäubung","Trockenheit","Späte Aussaat"],a:1,e:"Die Pilzsporen infizieren die offene Blüte. Es bilden sich dunkle Dauerformen (Sklerotien)."},
-    {c:"Wirkstoffe",q:"Was bedeutet der 'Resistance Action Committee' Code (z.B. FRAC oder HRAC)?",o:["Preisliste","Klassifizierung von Wirkstoffen nach ihrem Wirkungsmechanismus zur Resistenzvermeidung","Telefonnummer","Zulassungsnummer"],a:1,e:"Wer Wirkstoffe mit unterschiedlichen Buchstaben/Zahlen mischt, verhindert Resistenzen."},
-    {c:"Biologie",q:"Welches Symptom ist typisch für Bormangel im Raps?",o:["Weiße Blätter","Markverbräunungen im Stängel und schlechter Schotenansatz","Schwarze Wurzeln","Riesenwuchs"],a:1,e:"Bor ist wichtig für die Zellwandstabilität und den Pollenschlauch."},
-    {c:"Technik",q:"Was ist eine 'pneumatische' Pflanzenschutzspritze?",o:["Spritze mit Luftreifen","Spritze, bei der ein Luftstrom die Tropfen aktiv in den Bestand transportiert","Spritze ohne Pumpe","Spritze mit Erdgasantrieb"],a:1,e:"Besonders im Wein- und Obstbau verbreitet, um auch Blattunterseiten zu treffen."},
-    {c:"Recht",q:"Was ist die 'Kleinvieh-Regelung' bei der Abdrift?",o:["Schutz von Schafen","Es gibt keine solche Regelung; der Schutz gilt für alle angrenzenden Biotope","Spritzen nur bei Hühnern","Abstand zu Kleinställen"],a:1,e:"Der Schutz der Biodiversität umfasst alle Lebensräume am Ackerrand."},
-    {c:"Biologie",q:"Woran erkennt man den Befall mit der Kohldrehfliege im Raps?",o:["Gelbe Schoten","Verdrehte Blattstiele und gestauchte Herzblätter im jungen Raps","Löcher im Blatt","Rote Wurzeln"],a:1,e:"Die Larven reizen das Gewebe, was zu dem typischen Dreh-Wachstum führt."},
-    {c:"Wirkstoffe",q:"Was versteht man unter 'Teilsystemischen' Wirkstoffen?",o:["Wirkt gar nicht","Dringt ins Blatt ein und verteilt sich lokal, aber nicht in der ganzen Pflanze","Wirkt nur im Boden","Wirkt nur bei Sonne"],a:1,e:"Sie bilden ein Wirkstoffdepot im Blattgewebe (z.B. viele Fungizide)."},
-    {c:"Biologie",q:"Was ist 'Halmbruch' (Pseudocercosporella)?",o:["Ein mechanischer Schaden","Ein Pilz, der die Halmbasis infiziert (Augenflecken) und das Leitgewebe zerstört","Wassermangel","Frostschaden"],a:1,e:"Führt zu Ertragsverlusten durch gestörten Nährstofftransport und Lager."},
-    {c:"Umwelt",q:"Welche Rolle spielen 'Saumstrukturen' (Hecken, Raine) für den IPS?",o:["Keine","Rückzugsraum für Nützlinge (Marienkäfer, Schlupfwespen)","Sie behindern das Spritzen","Sie ziehen nur Unkraut an"],a:1,e:"Ein intaktes Ökosystem reduziert den Bedarf an Insektiziden."},
-    {c:"Biologie",q:"Woran erkennt man Kupfermangel im Getreide?",o:["Rote Punkte","Weiße, eingerollte Blattspitzen (Peitschensymptom) und taube Ährenspitzen","Gelbe Wurzeln","Schwarze Halme"],a:1,e:"Kupfer ist wichtig für die Ligninbildung (Standfestigkeit)."},
-    {c:"Technik",q:"Was ist eine 'sensorgestützte' Teilflächenspritzung?",o:["Spritzen nach Gefühl","Sensoren erkennen Unkrautnester in Echtzeit und schalten Düsen gezielt an","GPS ohne Fahrer","Spritzen bei Nacht"],a:1,e:"Spart massiv PSM ein, indem nur dort appliziert wird, wo tatsächlich Befall ist."},
-    {c:"Recht",q:"Was bedeutet 'MRL' (Maximum Residue Level)?",o:["Maximaler Regenlevel","Gesetzlich festgelegte Rückstandshöchstmenge eines PSM in Lebensmitteln","Mindest-Reifen-Luftdruck","Mittel-Resistenz-Liste"],a:1,e:"Wird dieser Wert überschritten, darf die Ware nicht vermarktet werden."},
-    {c:"Biologie",q:"Welcher Schädling tritt bei Trockenheit verstärkt in Zuckerrüben auf?",o:["Schnecke","Rübenfliege oder Schwarze Bohnenlaus","Regenwurm","Drahtwurm"],a:1,e:"Läuse vermehren sich bei warm-trockener Witterung explosionsartig."},
-    {c:"Wirkstoffe",q:"Was ist ein 'Inhibitor'?",o:["Ein Beschleuniger","Ein Hemmstoff, der einen biologischen Prozess stoppt","Ein Farbstoff","Ein Dünger"],a:1,e:"Die meisten PSM wirken als Inhibitoren wichtiger Lebensvorgänge."},
-    {c:"Biologie",q:"Woran erkennt man 'Bakterielle Weichfäule' bei Kartoffeln?",o:["Trockene Stellen","Matschige, übelriechende Knollen (Gewebezerfall)","Harte, blaue Flecken","Grüne Schale"],a:1,e:"Erwinia-Bakterien führen oft nach Staunässe zum Totalverlust im Lager."},
-    {c:"Technik",q:"Was bewirkt eine 'kontinuierliche Innenreinigung'?",o:["Reinigung der Reifen","Reinigung des Tanks mit Klarwasser, während die Spritze noch ausspritzt","Putzen der Kabine","Spritzen ohne Wasser"],a:1,e:"Verhindert die Verschleppung von Restmengen und schont den Hofraum."},
-    {c:"Biologie",q:"Was sind 'Mykotoxine'?",o:["Düngerstoffe","Giftige Stoffwechselprodukte von Pilzen (z.B. DON bei Fusarium)","Pflanzensäfte","Insektengifte"],a:1,e:"Sie stellen ein hohes Gesundheitsrisiko für Mensch und Tier dar."},
-    {c:"Wirkstoffe",q:"Was ist 'systemische Wirkung'?",o:["Mittel wirkt sofort","Wirkstoff wird aufgenommen und im Saftstrom der Pflanze verteilt","Mittel ist giftig","Mittel wirkt nur im Boden"],a:1,e:"Dies ermöglicht die Bekämpfung von Schädlingen auf der Blattunterseite."},
-    {c:"Biologie",q:"Woran erkennt man Stickstoffmangel im Getreide?",o:["Dunkelgrüne Blätter","Hellgrüne bis gelbe Verfärbung, beginnend an den älteren Blättern","Lila Spitzen","Schwarze Flecken"],a:1,e:"Stickstoff ist mobil; die Pflanze zieht ihn aus alten Blättern in neue."},
-    {c:"Recht",q:"Was ist das 'Verzeichnis regionalisierter Kleinstrukturanteile'?",o:["Eine Liste von Traktoren","Regelt die Abstandsreduzierung zu Gewässern je nach Landschaft","Ein Kochbuch","Liste von Pflanzensorten"],a:1,e:"In Regionen mit vielen Hecken können Abstände unter Auflagen verringert werden."},
-    {c:"Biologie",q:"Woran erkennt man Phoma-Befall beim Raps?",o:["Weiße Fliegen","Graue Flecken mit schwarzen Punkten am Stängelgrund (Wurzelhalsfäule)","Gelbe Schoten","Rote Wurzeln"],a:1,e:"Führt zum Absterben des Gewebes und vorzeitiger Reife."},
-    {c:"Technik",q:"Was bewirkt ein 'Druckbegrenzungsventil'?",o:["Erhöht den Druck","Schützt das System vor Überdruck (Bersten von Leitungen)","Regelt die Geschwindigkeit","Misst den Tankinhalt"],a:1,e:"Es leitet die Flüssigkeit bei Verstopfungen sicher zurück in den Tank."},
-    {c:"Biologie",q:"Woran erkennt man den Kohlgallenrüssler-Befall im Raps?",o:["Löcher im Blatt","Gallenartige Wucherungen an der Wurzel (innen hohl, oft Larve drin)","Gelbe Blüten","Leere Schoten"],a:1,e:"Unterscheidungsmerkmal zur Kohlhernie: Die Galle ist hohl."},
-    {c:"Wirkstoffe",q:"Was sind 'Wuchsstoff-Herbizide'?",o:["Dünger","Mittel, die ein unkontrolliertes Wachstum/Verdrehungen auslösen","Mittel für mehr Ertrag","Bodenmittel"],a:1,e:"Bekanntestes Beispiel: MCPA. Sie wirken hormonell."},
-    {c:"Biologie",q:"Woran erkennt man Zinkmangel im Mais?",o:["Rote Blattränder","Weiße bis gelbe Längsstreifen beiderseits der Mittelrippe","Schwarze Wurzeln","Umfallende Pflanzen"],a:1,e:"Tritt oft bei hohen pH-Werten auf."},
-    {c:"Recht",q:"Darf man B4-Mittel in die offene Blüte spritzen?",o:["Nein","Nur mit Sondergenehmigung","Ja, B4 gilt als nicht bienengefährlich","Nur bei Regen"],a:2,e:"B4 hat keine Flugzeitbeschränkungen."},
-    {c:"Biologie",q:"Welches Insekt ist ein wichtiger Gegenspieler zur Blattlaus?",o:["Kartoffelkäfer","Marienkäfer und Schwebfliegenlarve","Maiszünsler","Drahtwurm"],a:1,e:"Marienkäfer fressen hunderte Läuse pro Tag."},
-    {c:"Technik",q:"Was ist die 'Querverteilung'?",o:["Fahrtrichtung","Gleichmäßigkeit der Flüssigkeitsverteilung über die Arbeitsbreite","Reifenabstand","Tankreinigung"],a:1,e:"Wird durch den V-Wert beschrieben."},
-    {c:"Biologie",q:"Woran erkennt man Phosphormangel bei jungen Maispflanzen?",o:["Gelbe Blätter","Dunkelgrüne bis rötlich-violette Verfärbung der Blattränder","Weiße Flecken","Löcher"],a:1,e:"Tritt oft bei Kälte auf."},
-    {c:"Wirkstoffe",q:"Was ist ein 'Fungizid-Resistenz-Management'?",o:["Immer das stärkste Mittel","Mischen oder Abwechseln von verschiedenen Wirkmechanismen","Dosis reduzieren","Nur bei Regen"],a:1,e:"Verhindert die Selektion resistenter Pilzstämme."},
-    {c:"Biologie",q:"Woran erkennt man den Befall mit Getreidehähnchen?",o:["Schwarze Ähren","Streifenförmiger Fensterfraß am Blatt durch die Larven","Umfallende Halme","Gelbe Blätter"],a:1,e:"Die schleimigen Larven fressen das Blattgrün streifenförmig ab."},
-    {c:"Recht",q:"Was bedeutet die Kennzeichnung 'GHS07'?",o:["Lebensgefahr","Gesundheitsschädlich / Reizend","Umweltgefährlich","Explosiv"],a:1,e:"Warnt vor Reizungen oder Sensibilisierung."},
-    {c:"Biologie",q:"Was versteht man unter 'Integrierter Pflanzenschutz'?",o:["Nur Chemie","Kombination aller vertretbaren Methoden (Ackerbau, Technik, Chemie)","Nur Bio-Anbau","Einsatz von Drohnen"],a:1,e:"Chemie ist hier die letzte Option."},
-    {c:"Technik",q:"Welche Aufgabe hat das Rührwerk?",o:["Kühlung","Verhindern des Absetzens von Wirkstoffen","Druckaufbau","Düsenreinigung"],a:1,e:"Hält Suspensionen in Schwebe."},
-    {c:"Biologie",q:"Welcher Pilz verursacht 'Flugbrand'?",o:["Mehltau","Ustilago nuda (Ähren werden zu schwarzem Sporenstaub)","Rost","Fusarium"],a:1,e:"Der Pilz ersetzt die Körner in der Ähre durch Brandsporen."},
-    {c:"Wirkstoffe",q:"Was ist der Unterschied zwischen Herbizid und Fungizid?",o:["Farbe","Herbizid gegen Unkraut, Fungizid gegen Pilze","Beides ist gleich","Herbizid ist für Tiere"],a:1,e:"Fachbegriffe für Zielorganismen."},
-    {c:"Biologie",q:"Woran erkennt man Manganmangel?",o:["Rote Blätter","Dunkle Punkte auf hellen Blättern (Dörrfleckenkrankheit)","Gelbe Wurzeln","Weiße Blüten"],a:1,e:"Besonders auf humosen Böden ein Problem."},
-    {c:"Recht",q:"Was bedeutet die Auflage 'AS 101'?",o:["Abstand Schule","Anwenderschutz-Auflage (z.B. Handschuhpflicht)","Abdrift-Stopp","Abstand zum Stall"],a:1,e:"Schützt die Gesundheit des Anwenders."},
-    {c:"Biologie",q:"Was ist die 'Kraut- und Knollenfäule'?",o:["Ein Käfer","Phytophthora infestans","Düngermangel","Wasserschaden"],a:1,e:"Kann bei feuchtem Wetter ganze Bestände vernichten."},
-    {c:"Umwelt",q:"Warum darf man nicht bei Temperaturen > 25°C spritzen?",o:["Wegen der Hitze","Verdunstungsgefahr und Phytotoxizität (Pflanzenschäden)","Traktor überhitzt","Spritze rostet"],a:1,e:"Die Wirkung sinkt und die Pflanze wird durch die Sonne zusätzlich gestresst."},
-    
-    // Weitere 10 Expertenfragen um auf 150 zu kommen
-    {c:"Technik",q:"Was ist die 'Indirekte' Tankreinigung?",o:["Mit der Hand putzen","Reinigung durch schrittweises Verdünnen der Restmenge mit Klarwasser","Nur mit Wasser spülen","Gibt es nicht"],a:1,e:"Sicherste Methode zur Vermeidung von Rückständen."},
-    {c:"Biologie",q:"Woran erkennt man 'Rhynchosporium' in Gerste?",o:["Gelbe Kreise","Linsenförmige Flecken mit hellem Zentrum und dunklem Rand","Weißer Staub","Schwarze Halme"],a:1,e:"Typische Blattfleckenkrankheit der Gerste."},
-    {c:"Wirkstoffe",q:"Was ist ein 'Totalherbizid'?",o:["Wirkt nur gegen Gräser","Nicht-selektives Mittel gegen alles Grüne","Dünger","Pilzmittel"],a:1,e:"Beispiel: Glyphosat."},
-    {c:"Recht",q:"Was ist das 'Pflanzenschutzgesetz'?",o:["Ein Ratgeber","Die gesetzliche Grundlage für den Schutz der Kulturpflanzen","Ein Werbeheft","Gibt es nicht"],a:1,e:"Es regelt Zulassung, Handel und Anwendung."},
-    {c:"Biologie",q:"Was bedeutet 'Resistenz'?",o:["Pflanze wächst","Erbliche Unempfindlichkeit eines Erregers gegen ein Mittel","Tier stirbt","Blatt wird grün"],a:1,e:"Ein großes Problem durch zu häufige Anwendung gleicher Wirkstoffe."},
-    {c:"Technik",q:"Was ist ein 'Düsenprüfstand'?",o:["Ein Parkplatz","Ein Gerät zur Messung der Querverteilung am Prüfungsort","Ein Schrank","Ein Traktorteil"],a:1,e:"Dient der Kontrolle der Ausbringgenauigkeit."},
-    {c:"Biologie",q:"Woran erkennt man 'Septoria nodorum'?",o:["Rote Punkte","Flecken an Blättern UND Spelzen (Ährenbefall)","Gelbe Wurzeln","Weiße Blüten"],a:1,e:"Wichtig für die Ertragssicherung im Weizen."},
-    {c:"Wirkstoffe",q:"Was bewirkt ein 'Safener'?",o:["Mehr Schaum","Schutz der Nutzpflanze vor Herbizidschäden","Tötet Bienen","Färbt die Spritze"],a:1,e:"Wird oft im Mais eingesetzt."},
-    {c:"Recht",q:"Wer kontrolliert den Sachkundenachweis?",o:["Die Post","Der amtliche Pflanzenschutzdienst","Die Bank","Der Nachbar"],a:1,e:"Kontrollen finden im Betrieb oder auf dem Feld statt."},
-    {c:"Biologie",q:"Woran erkennt man 'Echten Mehltau'?",o:["Schwarze Löcher","Weißer, mehliger Belag auf den Blättern","Rote Ränder","Gelbe Halme"],a:1,e:"Ein klassischer Schönwetterpilz."}
+  // UMWELT
+  {c:"Umwelt", q:"Was regeln 'NW-Auflagen' (z. B. NW 603, NW 605) im Zulassungsbescheid?", o:["Abstände zu Oberflächengewässern zum Schutz des Naturhaushalts; ggf. Reduzierung durch verlustmindernde Technik möglich","Naturwaldabstände für forstliche PSM","Beschränkungen für Nachtspritzungen","Nachbau-Wartezeiten für Folgekulturen"], a:0, e:"NW = Naturschutz Wasser. Die Auflagen legen Mindestabstände von 5, 10 oder 20 m zu Gewässern fest und erlauben unter Bedingungen (anerkannte Technik) eine Reduzierung."},
+  {c:"Umwelt", q:"Welche Windgeschwindigkeit gilt als praktische Obergrenze für Pflanzenschutzspritzungen im Freiland?", o:["1 m/s (Windstille)","3 m/s","5 m/s (ca. 18 km/h, Windstärke 3)","10 m/s (Windstärke 5)"], a:2, e:"Ab 5 m/s ist auch mit Injektordüsen die Abdrift kaum noch kontrollierbar. Für besonders empfindliche Gewässer-Schutzauflagen können geringere Schwellenwerte gelten."},
+  {c:"Umwelt", q:"Wie ist mit Restbrühe im Spritztank nach der Behandlung korrekt zu verfahren?", o:["Zehnfach mit Wasser verdünnen und auf der behandelten Fläche ausspritzen – nie in die Kanalisation","Im Hofgully ablassen","Auf dem Kompost entsorgen","Restbrühe kann im Tank bis zur nächsten Saison verbleiben"], a:0, e:"Verdünnte Restbrühe auf die Behandlungsfläche ausbringen ist die einzig legale Feldmethode. Abwasser-Einleitung von PSM ist eine Straftat; Biobed-Anlagen sind eine weitere Option für Hofwaschwasser."},
+  {c:"Umwelt", q:"Wofür steht das GHS09-Gefahrenpiktogramm (Baum mit totem Fisch)?", o:["Gewässergefährdung: das Mittel ist für aquatische Organismen giftig oder sehr giftig","Holzschutzmittel: das Mittel greift Holz an","Kältegefahr: Mittel darf nicht einfrieren","Fischkrankheit: Mittel ist nur für Teiche verboten"], a:0, e:"GHS09 warnt vor akuter oder chronischer Gefährdung für Wasserorganismen (Fische, Kleinkrebse, Algen). Das Piktogramm ist Pflicht bei Einstufung als aquatisch gefährlich (H400/H410 usw.)."},
+  {c:"Umwelt", q:"Was ist ein 'Bio-Bed' und wozu dient es auf dem Betrieb?", o:["Ein Filtersystem aus Stroh, Humus und Erde, das PSM-haltiges Waschwasser aus der Spritzenreinigung biologisch abbaut","Ein Schlafplatz für Nützlinge","Ein Blühstreifen am Feldrand","Ein abgedecktes Lager für PSM-Gebinde"], a:0, e:"Im Bio-Bed bauen Bodenmikroorganismen (Pilze und Bakterien) Pflanzenschutzmittelrückstände im Abwasser der Spritzenreinigung ab, bevor das Wasser in den Boden gelangt."},
+  {c:"Umwelt", q:"Warum sollte bei Temperaturen über 25 °C nicht gespritzt werden?", o:["Hohe Verdunstung der Wirkstofftröpfchen, erhöhte Phytotoxizitätsgefahr und verringerte Wirksamkeit","Der Traktor überhitzt","Die Düsen verformen sich bei Hitze","Es ist nur wegen der Mittagsruhe verboten"], a:0, e:"Hohe Temperaturen beschleunigen die Verdunstung feiner Tröpfchen (Drift als Dampf), können Blattverbrennungen auslösen (Phytotoxizität) und vermindern die Wirkstoffmenge, die tatsächlich auf dem Blatt ankommt."},
+
+  // BIOLOGIE – Krankheiten
+  {c:"Biologie", q:"Woran erkennt man Gelbrost (Puccinia striiformis) im Winterweizen – und wie unterscheidet er sich vom Braunrost?", o:["Gelbrost: leuchtend gelbe Sporenlager in deutlichen Längsstreifen entlang der Blattadern; Braunrost: runde, zufällig verteilte, orangebraune Pusteln auf der Blattoberfläche","Gelbrost ist braun, Braunrost ist gelb","Beide sehen identisch aus, unterscheiden sich nur im Geruch","Gelbrost befällt nur Ähren, Braunrost nur Blätter"], a:0, e:"Gelbrost bildet charakteristische Streifen (wie eine Schraff-Linie) entlang der Blattadern – daher 'Streifenrost'. Braunrost bildet unregelmäßig verteilte, runde orangebraune Sporenhäufchen (Uredien)."},
+  {c:"Biologie", q:"Was sind die charakteristischen Merkmale von Septoria tritici (Blattdürre) im Weizen?", o:["Unregelmäßige, chlorotisch-nekrotische Blattflecken mit winzigen schwarzen Punkten (Pyknidien) im Inneren","Gleichmäßige gelbe Verfärbung aller Blätter","Weißer Pilzrasen auf der Blattoberfläche","Braune, abgeknickte Halme an der Basis"], a:0, e:"Die schwarzen Pyknidien (Sporenträger des Pilzes) im Inneren der braungrauen Flecken sind das Schlüsselmerkmal zur Unterscheidung von Septoria tritici von anderen Weizenkrankheiten."},
+  {c:"Biologie", q:"Welches Symptom verursacht Fusarium spp. an der Weizenähre, und welches toxikologische Risiko besteht?", o:["Taubähren: einzelne oder ganze Ährchen bleichen vorzeitig aus; Bildung von Mykotoxinen (v. a. Deoxynivalenol, DON)","Schwarze Sporenlager an den Ähren (Brandsporen)","Roter Belag auf Ähren und Spelzen","Ährenknickung ohne Verfärbung"], a:0, e:"Fusarium-Infektionen zur Blüte erzeugen das gefährliche Mykotoxin DON. Es ist hitzestabil und kann sich im Mehl anreichern – Grenzwerte für Backweizen sind streng reglementiert."},
+  {c:"Biologie", q:"Was ist Halmbruch (Pseudocercosporella herpotrichoides / Oculimacula spp.) und welches typische Symptom tritt an der Halmbasis auf?", o:["Pilzbefall der Halmbasis: linsenförmige Augenflecken mit hellem Zentrum und dunklem Rand; bei starkem Befall: Lager durch zerstörtes Leitgewebe","Brauner Rost auf dem Halm","Weißes Pilzmyzel an der Bodenoberfläche","Schwarze Punkte auf den Blättern"], a:0, e:"Die 'Augenflecken' (eye spots) an der Halmbasis sind das Erkennungsmerkmal. Der Pilz zerstört die Leitbündel, der Halm knickt ein (Lager), Ertrag und Qualität leiden massiv."},
+  {c:"Biologie", q:"Welche Pilzkrankheit verursacht die sogenannte 'Ringelfleckigkeit' oder 'Sprenkelkrankheit' bei Gerste (Ramularia collo-cygni)?", o:["Ramularia collo-cygni: kleine, rechteckige, dunkelbraune Flecken, oft durch Stress (UV-Licht, Trockenheit) ausgelöst – typischerweise erst nach der Blüte","Rhynchosporium: ovale Flecken mit hellem Rand","Netzfleckenkrankheit: charakteristisches Netz-Muster aus Längs- und Querstreifen","Mehltau: weißer Belag"], a:0, e:"Ramularia tritt oft erst spät auf (nach Blüte), wird durch Umweltstress getriggert und ist durch seine charakteristischen, rechteckigen (durch die Blattadern begrenzten) Flecken identifizierbar."},
+  {c:"Biologie", q:"Woran erkennt man die Kohlhernie (Plasmodiophora brassicae) und wie unterscheidet sie sich vom Kohlgallenrüssler?", o:["Kohlhernie: massive, unregelmäßige, solide Knollenbildung an der Wurzel; Kohlgallenrüssler: spindelförmige, hohle Gallen mit einer Larve im Inneren","Beide erzeugen identische Gallen","Kohlhernie bildet Gallen nur an der Stängelspitze","Kohlgallenrüssler befällt nur Blätter"], a:0, e:"Kohlhernie-Gallen bestehen aus hypertrophiertem Pflanzengewebe (massiv, fest). Rüsslergallen sind hohl und enthalten eine cremefarben-weiße Larve – entscheidend für die richtige Bekämpfungsstrategie."},
+  {c:"Biologie", q:"Was versteht man unter 'Echter Mehltau' an Getreide – wie sieht er aus, wann tritt er auf, und was unterscheidet ihn von Falschem Mehltau?", o:["Weißer, mehliger Pilzrasen auf der Blattoberfläche (abwischbar); tritt bei trocken-warmem Wetter auf; Falscher Mehltau bildet Rasen auf der Blattunterseite","Grauer Belag unter dem Blatt; tritt bei feuchtem Wetter auf","Gelbe Flecken auf der Blattoberseite; Falscher Mehltau ist weiß","Beide sind identisch, nur der Geruch ist verschieden"], a:0, e:"Echter Mehltau (Erysiphe graminis) wächst außen auf der Blattoberfläche und liebt trockene Phasen mit warmen Tagen. Falscher Mehltau bildet seinen Sporenrasen typischerweise an der Blattunterseite und braucht Feuchte."},
+
+  // BIOLOGIE – Schädlinge
+  {c:"Biologie", q:"Welcher Schädling überträgt das Gerstengelb-Verzwergungs-Virus (BYDV), und wann ist der kritische Infektionszeitraum?", o:["Blattläuse (vor allem Rhopalosiphum padi); kritische Phase: warme Herbste mit langem Auflauf und anhaltendem Blattlausflug","Drahtwürmer; kritische Phase: Saat im Frühjahr","Zikaden; kritische Phase: Sommer","Nematoden; kritische Phase: nach der Ernte"], a:0, e:"BYDV wird persistent durch saugende Blattläuse übertragen. Warme Herbste ermöglichen längeren Virusflug und höheren Befallsdruck. Frühsaaten und Mais als Nachbar erhöhen das Risiko."},
+  {c:"Biologie", q:"Woran erkennt man den Befall durch den Rapsglanzkäfer, und warum ist die Bekämpfung im Knospenstadium so wichtig?", o:["Käfer beißen in geschlossene Knospen und fressen Pollen heraus → Knospen fallen ab; im offenen Blütenstadium ist der Käfer harmlos, da er Pollen aus offenen Blüten frisst","Käfer befällt Blätter und saugt Siebröhren aus","Käfer legt Eier in Schoten, die dann aufplatzen","Käfer befällt nur Stängel"], a:0, e:"Im Knospenstadium (BBCH 51–59) ist der wirtschaftliche Schaden am größten – jede angebissene Knospe ist ein verlorener Schoten. Nach der Blütenöffnung ist der Käfer nützlich (Bestäubung)."},
+  {c:"Biologie", q:"Was sind die typischen Schadbild-Symptome des Maiszünslers (Ostrinia nubilalis) und warum ist der Bekämpfungszeitpunkt so entscheidend?", o:["Bohrlöcher im Stängel, abknickende Stängel und Kolben; die Bekämpfung muss erfolgen, wenn die Larven schlüpfen und auf der Pflanzenoberfläche sind – danach im Stängel nicht mehr erreichbar","Blattfraß an der Blattspitze, jederzeit bekämpfbar","Wurzelfraß, bekämpfbar mit Bodeninsektiziden","Virusinfektion, bekämpfbar mit systemischen Mitteln"], a:0, e:"Sobald die Raupe des Maiszünslers im Stängel ist, schützt sie das Pflanzengewebe vor Kontakt mit PSM-Spritzbrühe. Daher ist die Bekämpfung auf das Schlupffenster der Larven (Eiablage bis Einbohren) begrenzt."},
+  {c:"Biologie", q:"Was verursacht der Große Rapsstängelrüssler (Ceutorhynchus napi) und welches Symptom entsteht im Frühjahr?", o:["Die Larven fressen das Stängelmark; das Stängelgewebe kann nicht mehr wachsen, der Stängel reißt längs auf, Triebe verdrehen sich (typische S-förmige Verbiegung)","Die Larven befallen Schoten und leeren sie aus","Der Käfer frisst Blätter lochartig an","Die Larven verursachen Wurzelfäule"], a:0, e:"Nach der Eiablage im Stängel fressen die Larven das Mark heraus. Das Stängelgewebe reißt im Frühjahr auf – typisches Erkennungsmerkmal, das zum Ertragsverlust durch gestörten Nährstofftransport führt."},
+  {c:"Biologie", q:"Woran erkennt man den Rapserdflohabefall im Herbst, und welche Generation verursacht den Hauptschaden?", o:["Adulte: feiner Lochfraß (schrotschussartig) in Keim- und Laubblättern; Hauptschaden durch Larven, die im Frühjahr in Blattstielen/Stängeln minieren","Adulte fressen vollständige Blätter ab; Larven schädigen Wurzeln","Befallssymptome erst zur Blüte sichtbar","Nur ein einziger Fraßschaden – Stängelloch"], a:0, e:"Adulte Rapserdflöhe (Psylliodes chrysocephala) verursachen im Herbst den charakteristischen Schrotschuss-Lochfraß. Die eigentlichen Ertragsschäden entstehen dann durch die überwinternden Larven, die im Frühjahr in Blattstielen und Stängelgewebe fressen."},
+  {c:"Biologie", q:"Was sind die Schadbild-Merkmale des Getreidehähnchens (Oulema melanopus), und durch welche Generation entsteht das charakteristische Fensterfraß-Bild?", o:["Larven fressen das Blattmesophyll streifenförmig aus; es bleibt nur die papierartige Oberhaut stehen (Fensterfraß/Silberstreifen)","Käfer beißen runde Löcher in die Blätter","Larven minieren zwischen Blattadern, Blatt bleibt grün","Käfer saugen Halmsaft aus"], a:0, e:"Die schleimüberzogenen Larven des Getreidehähnchens fressen das Blattgrün (Palisadenparenchym) heraus; die verbleibende transparente Epidermis trocknet zu weißlich-silbrigen Streifen (Fensterfraß) ein."},
+
+  // BIOLOGIE – Unkräuter & IPS
+  {c:"Biologie", q:"Warum gilt Ackerfuchsschwanz (Alopecurus myosuroides) als das problematischste Ungras in Wintergetreide-Fruchtfolgen?", o:["Extreme Konkurrenzkraft um Licht und Nährstoffe, hohe Samenproduktion und hohes Resistenzrisiko gegen HRAC-Gruppen A (ACCase-Hemmer) und B (ALS-Hemmer)","Er ist giftig für Tiere","Er überträgt Pflanzenviren","Er stört die Erntemaschinen durch zähes Stroh"], a:0, e:"Ein einzelner AFU-Halm kann 300–1000 Samen bilden. Durch einseitige Herbizidstrategie haben sich weltweit multiple Resistenzen (target-site + metabolisch) entwickelt, die kaum noch chemisch bekämpfbar sind."},
+  {c:"Biologie", q:"Wie unterscheidet man Ackerfuchsschwanz von Windhalm (Apera spica-venti) im Jugendstadium – ohne Ähre?", o:["AFU: kurze, gestutzte (gesägte) Ligula, keine Blattöhrchen, raue Blattoberfläche; Windhalm: lange (3–8 mm), tief gespaltene Ligula, ebenfalls keine Öhrchen","AFU ist dunkelgrün, Windhalm hellgrün","AFU hat immer rote Blattscheiden, Windhalm nicht","Beide sind im Jugendstadium identisch, nur am Wuchs unterscheidbar"], a:0, e:"Die Ligula (Blatthäutchen an der Blattscheide) ist das wichtigste Unterscheidungsmerkmal: AFU-Ligula ist kurz, gezähnelt; Windhalm-Ligula ist auffällig lang und gespalten. Richtige Diagnose = richtige Herbizidwahl."},
+  {c:"Biologie", q:"Was versteht man unter 'Metabolischer Resistenz' bei Unkräutern, und warum ist sie besonders gefährlich?", o:["Das Unkraut baut den Wirkstoff enzymatisch ab, bevor er die Zielstruktur erreicht; gefährlich, weil oft mehrere Wirkmechanismen gleichzeitig betroffen sind","Die Zielstruktur (Target Site) des Wirkstoffs verändert sich durch Mutation","Das Unkraut meidet die Herbizidwolke durch geringere Spaltöffnungsöffnung","Das Unkraut wächst tiefer im Boden und wird nicht getroffen"], a:0, e:"Metabolische Resistenz wird durch Enzyme (Cytochrom P450, GST) vermittelt, die viele verschiedene Herbizidwirkstoffe inaktivieren. Im Gegensatz zur Target-Site-Resistenz kann sie mehrere HRAC-Klassen gleichzeitig betreffen."},
+  {c:"Biologie", q:"Was ist das 'Falsche Saatbett' und welchen Vorteil bringt diese Maßnahme bei der Bekämpfung von Ackerfuchsschwanz?", o:["Frühzeitige Bodenbearbeitung zur Keimprovokation, anschließend mechanische oder chemische Beseitigung der aufgelaufenen Unkräuter VOR der eigentlichen Saat – verringert den Samenvorrat im Boden","Saatbettbereitung mit dem falschen Gerät","Saat in das Stroh ohne Bodenbearbeitung","Blindstriegeln nach der Saat"], a:0, e:"Durch wiederholtes Provozieren und Beseitigen von AFU-Keimlingen vor der Kulturpflanzen-Saat kann der Samenvorrat im Boden über Jahre deutlich reduziert werden – sehr wirksame, herbizidfreie Maßnahme."},
+  {c:"Biologie", q:"Was versteht man unter der 'Schadschwelle' im Integrierten Pflanzenschutz?", o:["Die Befallsdichte, bei der der erwartete Ertragsverlust die Kosten der Bekämpfungsmaßnahme übersteigt und eine Behandlung wirtschaftlich sinnvoll wird","Das gesetzliche Maximum an PSM pro Hektar","Die Konzentration eines PSM, die tödlich für Menschen ist","Der Zeitpunkt, ab dem das Feld nicht mehr geerntet werden darf"], a:0, e:"Die Schadschwelle ist kein fester Wert, sondern abhängig von Befallsdichte, Kulturwert, Mittelkosten und Prognose. Nur bei Überschreitung ist eine Bekämpfung ökonomisch und ökologisch vertretbar."},
+  {c:"Biologie", q:"Welche Strategie der Bodenbearbeitung fördert das Fusarium-Risiko im Winterweizen nach Mais?", o:["Mulchsaat ohne vorheriges Häckseln und Einarbeiten der Maisstoppeln belässt das Primärinokulum an der Oberfläche","Pflügen verhindert die Sporenabwehr der Pflanze","Grubberbearbeitung erhöht den Bodenwasserspiegel","Kreiselegge zerstört die Pilzmyzelien"], a:0, e:"Fusarium-Arten überleben auf Maisstoppeln an der Bodenoberfläche als Primärinokulum. Pflügen (tiefes Einarbeiten) reduziert das Risiko; Mulchsaat mit Stoppelresten erhöht es massiv."},
+  {c:"Biologie", q:"Wann ist das BBCH-Stadium 51 im Getreide erreicht, und welche Maßnahme ist an diesen Zeitpunkt geknüpft?", o:["Beginn des Ährenschiebens (erste Ährenspitze sichtbar); Zeitpunkt für die späte Ährenbehandlung gegen Fusarium und Septoria nodorum","Beginn der Bestockung; Zeitpunkt für Herbizide","Ende der Milchreife; letzter Termin für Fungizide","Auflaufen; Zeitpunkt für Insektizide"], a:0, e:"BBCH 51 markiert das Beginn-Ährenschieben. Die Ährenbehandlung (Fusarium/Septoria-Prophylaxe) findet zwischen BBCH 61–65 (Vollblüte) statt – aber das Ziel-Stadium 51 ist der späteste Planungszeitpunkt."},
+
+  // WIRKSTOFFE
+  {c:"Wirkstoffe", q:"Was bedeutet 'HRAC-Gruppe A' bei Herbiziden, und warum ist Resistenz in dieser Gruppe ein weltweites Problem?", o:["ACCase-Hemmer (Fops und Dims), die selektiv gegen Gräser wirken; Resistenz durch Mutation an der Zielstruktur (ACCase-Enzym) ist weltweit weit verbreitet","Alle Kontaktherbizide ohne systemische Wirkung","Bodenherbizide mit sehr langer Persistenz","Wuchsstoffe für breitblättrige Unkräuter"], a:0, e:"Gruppe A umfasst Aryloxyphenoxypropionate ('Fops') und Cyclohexandione ('Dims'). Durch jahrzehntelangen Einsatz gegen AFU und Windhalm haben sich Resistenzmutationen am ACCase-Gen weltweit durchgesetzt."},
+  {c:"Wirkstoffe", q:"Wie wirken Sulfonylharnstoffe (HRAC-Gruppe B) und warum ist der Wirkungseintritt verzögert?", o:["ALS-Inhibitoren: sie hemmen das Enzym Acetolactat-Synthase (erster Schritt der verzweigten Aminosäuresynthese); Wachstumsstopp sofort, aber sichtbares Absterben erst nach 7–21 Tagen","Sie zerstören die Zellwand sofort; Unkraut stirbt in 24 h","Sie wirken über den Boden und werden erst nach starkem Regen aktiv","Sie hemmen die Photosynthese und wirken bei Sonnenlicht sofort"], a:0, e:"ALS-Hemmer (Gruppe B) stoppen die Zellteilung durch Blockade der Aminosäuresynthese. Das Unkraut hört sofort auf zu wachsen, stirbt aber erst ab, wenn die vorhandenen Aminosäurereserven erschöpft sind."},
+  {c:"Wirkstoffe", q:"Wie wirken Strobilurine (FRAC-Gruppe 11) und warum sind sie hochgradig resistenzgefährdet?", o:["Sie hemmen die mitochondriale Elektronentransportkette (Komplex III) und blockieren die Energiegewinnung der Pilze; nur eine Single-Point-Mutation am Zielort (Cytochrom b) reicht für vollständige Resistenz","Sie zerstören die Pilzellwand durch osmotischen Druck","Sie greifen in die Pilzzellteilung ein; viele Mutationen nötig für Resistenz","Sie wirken nur preventiv und verteilen sich nicht in der Pflanze"], a:0, e:"Strobilurine (z. B. Azoxystrobin, Pyraclostrobin) haben einen einzigen Angriffspunkt (Cytochrom b, G143A-Mutation). Eine Einzelmutation genügt für vollständige Resistenz, daher striktes Mischungsgebot mit anderen FRAC-Klassen."},
+  {c:"Wirkstoffe", q:"Wie wirkt Glyphosat, und warum erfasst es auch tiefwurzelnde Rhizomunkräuter?", o:["Hemmt das EPSP-Synthase-Enzym (Shikimat-Weg) systemisch; wird über Blatt aufgenommen und phloem-mobil in alle Pflanzenteile inklusive Rhizome und Ausläufer transportiert","Wirkt nur auf Blätter, nicht auf Wurzeln","Blockiert die Photosynthese im Chloroplasten","Wirkt über den Boden und tötet Wurzeln kontakt"], a:0, e:"Glyphosat ist phloem-mobil: Es wandert aktiv mit den Photoassimilaten in alle Senken der Pflanze, auch in tief im Boden liegende Rhizome von Quecke oder Ackerwinde. Daher ist es ein effektives Totalherbizid gegen ausdauernde Unkräuter."},
+  {c:"Wirkstoffe", q:"Was ist ein 'Safener' und in welcher Kultur wird er typischerweise eingesetzt?", o:["Ein Schutzmittel, das die Nutzpflanze vor Herbizidschäden bewahrt, indem es die Entgiftungsenzyme (z. B. GST) der Kulturpflanze stimuliert; typisch im Mais","Ein Zusatz, der die Wirkung des Fungizids verstärkt","Ein Netzmittel zur besseren Blattbenetzung","Ein Düngestoff, der dem PSM beigemengt ist"], a:0, e:"Safener (z. B. Isoxadifen, Cyprosulfamide) werden Gräser-Herbiziden im Mais beigemischt. Sie 'trainieren' spezifische Entgiftungsenzyme in der Maispflanze vor, sodass das Herbizid rasch metabolisiert wird, bevor es Schaden anrichtet."},
+  {c:"Wirkstoffe", q:"Was besagt der FRAC/HRAC-Code und wie nutzt man ihn für ein Resistenzmanagement?", o:["Er klassifiziert PSM nach ihrem Wirkmechanismus; durch Wechseln oder Mischen von Mitteln verschiedener Codes verhindert man die Selektion resistenter Stämme","Er ist nur ein Marketingcode ohne biologische Bedeutung","Er gibt die empfohlene Aufwandmenge an","Er listet zugelassene Kulturen auf"], a:0, e:"Wirkstoffe mit demselben FRAC/HRAC-Code haben denselben Angriffspunkt – wer sie mehrfach hintereinander einsetzt, selektiert resistente Individuen. Wer Codes rotiert (z. B. FRAC 3 + 7 + 11), verhindert dies."},
+  {c:"Wirkstoffe", q:"Was ist Bodenherbizid-Wirkung und welche Voraussetzung ist im Boden unbedingt nötig?", o:["Der Wirkstoff bildet im Oberboden einen Film; Unkrautkeimlinge nehmen ihn beim Keimen auf; Voraussetzung: ausreichende Bodenfeuchtigkeit, damit der Wirkstoff gelöst und aufgenommen werden kann","Bodenherbizide wirken nur auf bereits aufgelaufene Pflanzen","Bodenherbizide müssen bei starker Sonne ausgebracht werden","Bodenherbizide brauchen keinen Regen, da sie aus der Luft wirken"], a:0, e:"Auf trockenem Boden bleibt der Wirkstoff an Bodenpartikel adsorbiert und wird von den Keimlingswurzeln oder Keimblättern nicht aufgenommen. Erst mit Niederschlag oder Beregnung löst er sich und entfaltet seine Wirkung."},
+
+  // WEITERE FRAGEN
+  {c:"Biologie", q:"Was versteht man unter 'Phytophthora infestans' und warum kann die Krankheit innerhalb weniger Tage einen ganzen Kartoffelbestand vernichten?", o:["Oomycet (falscher Pilz); er sporuliert extrem schnell bei feuchtem Wetter (> 90 % rel. LF), die Inkubationszeit beträgt nur 3–5 Tage – ein exponentielles Befallswachstum ist möglich","Echter Pilz; er wirkt langsam über 4–6 Wochen","Bakterium; er befällt nur die Knollen im Boden","Virus; er wird durch Blattläuse übertragen"], a:0, e:"Phytophthora ist kein echter Pilz, sondern ein Oomycet. Bei idealen Bedingungen (18–22 °C, Blattnässe) sind innerhalb von 3 Tagen neue Sporangien reif – ein einziger Herd kann in wenigen Tagen einen Hektar befallen."},
+  {c:"Biologie", q:"Was ist 'Mutterkorn' (Claviceps purpurea) im Roggen, und welche Bedingungen begünstigen seinen Befall?", o:["Ein Schlauchpilz, der offene Roggenblüten infiziert und Sklerotien (dunkle, hornförmige Dauerkörper) bildet; feucht-kühles Wetter zur Blüte und schlechte Bestäubung fördern den Befall","Ein Käfer, der Roggenkörner frisst","Ein Virus, der zur Zwergwüchsigkeit führt","Bacteriose, die schwarze Halme erzeugt"], a:0, e:"Sklerotien von Mutterkorn enthalten Alkaloide (Ergotamine), die für Mensch und Tier hochgiftig sind. Feuchtes Wetter hält Blüten länger offen; unvollständige Bestäubung schafft Eintrittspforten für den Pilz."},
+  {c:"Biologie", q:"Welche Neonikotinoide sind EU-weit für Freilandsaatgutbeize weitgehend verboten, und was ist der Hauptgrund?", o:["Imidacloprid, Clothianidin, Thiamethoxam; systemische Wirkung in Pollen und Nektar gefährdet Bienen und andere Bestäuber (Subletale Effekte auf Navigation und Lernvermögen)","Glyphosat; Rückstände im Honig","Chlorpyrifos; Geruchsbelästigung für Bienen","Pyrethrins; Rückstände in Bienenwachs"], a:0, e:"Die EU hat Imidacloprid, Clothianidin und Thiamethoxam (drei Neonikotinoide) 2018 für alle Freilandanwendungen weitgehend verboten. Der Hauptgrund ist ihre systemische Aufnahme durch Pflanzen: Bienen und Hummeln werden durch geringe, subletale Mengen in Pollen und Nektar bei der Orientierung und beim Lernen geschädigt."},
+  {c:"Biologie", q:"Was bedeutet 'Integrierter Pflanzenschutz' (IPS) nach dem Pflanzenschutzgesetz, und in welcher Reihenfolge sind die Maßnahmen zu prüfen?", o:["Kombination aller geeigneten Methoden (ackerbaulich, biologisch, mechanisch, chemisch) unter Bevorzugung nicht-chemischer Maßnahmen; Chemie ist das letzte Mittel","Nur biologische Bekämpfung ohne Chemie","Möglichst viele verschiedene PSM gleichzeitig einsetzen","Chemie zuerst, da sie am sichersten wirkt"], a:0, e:"Der IPS verlangt: 1) Prophylaxe durch Fruchtfolge/Sorten/Bodenbearbeitung, 2) Monitoring und Schadschwellen, 3) Mechanische/biologische Maßnahmen, 4) Chemische Maßnahmen nur bei Schadschwellenüberschreitung."},
+  {c:"Technik", q:"Was ist eine 'pneumatische Pflanzenschutzspritze' und welche Zielgruppen profitieren davon?", o:["Eine Spritze, die Tropfen durch einen gezielten Luftstrom in den Bestand oder Baum trägt; besonders im Wein- und Obstbau, um auch Blattunterseiten zu benetzen","Eine Spritze mit Luftreifen für schwieriges Gelände","Eine Spritze ohne Pumpe, betrieben mit Druckluft aus dem Traktor","Eine ferngesteuerte Drohnenspritze"], a:0, e:"Pneumatische Gebläsespritzen ('Tunnel-' oder 'Gebläsegeräte') nutzen einen kräftigen Luftstrom, um Tröpfchen aktiv tief in die Bestandsstruktur zu transportieren – unverzichtbar für den Raumkulturbau (Reben, Äpfel)."},
+  {c:"Recht", q:"Was ist der Unterschied zwischen 'Zulassungsbeendigungstermin' und 'Aufbrauchfrist' bei einem Pflanzenschutzmittel?", o:["Zulassungsbeendigungstermin: Ab diesem Tag darf der Handel das Mittel nicht mehr abgeben. Danach läuft die Aufbrauchfrist für vorhandene Restbestände beim Landwirt","Beide Begriffe sind synonym","Zulassungsbeendigungstermin gilt nur für den Hersteller","Aufbrauchfrist beginnt erst 5 Jahre nach Zulassungsende"], a:0, e:"Der Zulassungsbeendigungstermin beendet den Handel. Die Aufbrauchfrist (gesetzlich max. 18 Monate nach Widerruf) erlaubt dem Landwirt, bereits erworbene Ware aufzubrauchen. Nach Ablauf der Aufbrauchfrist ist jede Anwendung verboten."},
+  {c:"Biologie", q:"Was sind die typischen Symptome von Cercospora beticola an Zuckerrübenblättern, und welche Auswirkung hat starker Befall auf den Ertrag?", o:["Kleine, runde Flecken mit hellem Zentrum und rotem bis braunem Rand; bei starkem Befall massiver Blattverlust → reduzierte Assimilation → deutlich geringere Zuckeranreicherung in der Rübe","Gelb-grüne Blattaufhellung ohne Flecken; kaum Auswirkung auf Ertrag","Großflächige braune Flecken auf Blattunterseite; verursacht Wurzelfäule","Schwärzung der Gefäßbündel; führt zu Welke"], a:0, e:"Cercospora-Flecken sind kreisrund mit hellgrauem Zentrum und intensiv rotem Rand. Starker Befall zwingt die Rübe, neue Blätter zu bilden ('Zweitverhulstung') – auf Kosten der Zuckereinlagerung in die Wurzel."},
+  {c:"Biologie", q:"Woran erkennt man die Netzfleckenkrankheit (Pyrenophora teres) der Gerste, und welcher Witterungstyp fördert sie?", o:["Charakteristisches Netz-Muster aus dunklen Längs- und Querstreifen auf dem Blatt; feucht-kühle Witterung mit häufigen Tauperioden fördert Sporulation und Infektion","Weiße Flecken ohne Rand; fördert Trockenheit","Rote Pusteln auf der Blattunterseite; fördert trockene Hitze","Grüne, wassergetränkte Flecken; fördert Frost"], a:0, e:"Das netzartige Muster aus braunen Längs- und Querstreifen ist das unverwechselbare Merkmal. Feuchte, kühle Perioden begünstigen die Infektion. Die Krankheit kann bis zu 30 % Ertragsverlust verursachen."},
+  {c:"Technik", q:"Was versteht man unter 'sensorgestützter Teilflächenbehandlung' und welche Einsparungen sind möglich?", o:["Kamerasensoren oder Spektrometersensoren erkennen Unkrautnester in Echtzeit, schalten Düsensektionen gezielt an – in vielen Fällen 50–90 % Herbizideinsparung möglich","Spritzen nur nachts mit Infrarotsensoren zur Erkennung von Wärme","Manuelles Kartieren und nachträgliches Ausbringen per Hand","GPS-geführtes Fahren ohne Überlappung"], a:0, e:"Optische Sensoren (z. B. WEEDit, Greenseeker) erkennen photosynthetisch aktive Biomasse oder Unkrautmuster. Nur dort, wo wirklich Unkraut ist, wird gespritzt – drastische PSM-Einsparung und Umweltentlastung."},
+  {c:"Biologie", q:"Was sind 'Mykotoxine' und welche Bedeutung haben sie für die Lebensmittel- und Futtermittelsicherheit?", o:["Giftige Sekundärmetabolite von Schimmelpilzen (z. B. DON, ZEA von Fusarium, Ochratoxin A von Aspergillus); hitzestabil, nicht abbaubar beim Backen – Grenzwerte in EU-Recht festgelegt","Natürliche Pilzaromastoffe ohne Gesundheitsrisiko","Nur in Futtermitteln problematisch, in Lebensmitteln harmlos","Bakterientoxine, die nur bei > 60 °C gebildet werden"], a:0, e:"Mykotoxine (z. B. DON = Deoxynivalenol) sind in der Pflanze gebildete Gifte, die Backen oder Kochen überleben. Sie schädigen Leber, Immunsystem und Nieren von Mensch und Tier. EU-Grenzwerte regeln maximal zulässige Gehalte in Getreide und Mehl."},
+  {c:"Biologie", q:"Was sind Nützlinge im Pflanzenschutz, welche Beispiele gibt es und wie fördert man sie?", o:["Organismen, die Schädlinge begrenzen (z. B. Marienkäfer und Schwebfliegenlarven gegen Blattläuse, Schlupfwespen gegen Getreidehähnchen-Larven); Förderung durch Blühstreifen, Hecken, Saumstrukturen","Chemische Hilfsstoffe, die PSM verstärken","Nur Bienen und Hummeln, die bestäuben","Bakterien im Boden, die Dünger aufnehmen"], a:0, e:"Ein reiches Nützlingsnetz (Raubinsekten, Parasitoide, Spinnen) reguliert Schädlingspopulationen und kann den chemischen Insektizideinsatz deutlich reduzieren. Heckenpflanzungen und Blühstreifen sind dabei zentrale Bausteine im IPS."},
+  {c:"Recht", q:"Was besagt das 'Verzeichnis regionalisierter Kleinstrukturanteile' bei NW-Auflagen und wer profitiert davon?", o:["In Regionen mit hohem Anteil an Landschaftselementen (Hecken, Gräben > 2 m Breite) können Gewässerabstände unter Einhaltung von Auflagen reduziert werden","Es ist eine Liste aller verbotenen PSM in Naturschutzgebieten","Es regelt den Abstand von PSM-Gebinden zu Kleinlebewesen im Lager","Es listet alle Klein-Betriebe mit weniger als 50 ha auf"], a:0, e:"In Regionen mit hohem Kleinstrukturanteil (> X % der Fläche ist Landschaftselement) kann der Mindestabstand zu Gewässern von 10 m auf 5 m oder von 5 m auf 0 m reduziert werden – unter der Bedingung, dass eine ausreichende Pufferwirkung durch die Landschaftsstruktur gegeben ist."},
 ];
 
 let activeQuestions = [];
 let currentIndex = 0;
 let score = 0;
+let wrongCount = 0;
+let answered = 0;
+let phase = 'intro'; // intro | quiz | result
 
-function initQuiz() {
-    // 30 zufällige Fragen aus dem Pool wählen
-    activeQuestions = [...fullPool].sort(() => Math.random() - 0.5).slice(0, 30);
-    currentIndex = 0;
-    score = 0;
-    showQuestion();
+const letters = ['A','B','C','D'];
+
+function $(id){ return document.getElementById(id); }
+
+function renderIntro() {
+  phase = 'intro';
+  $('stats-bar').style.display = 'none';
+  $('main-content').innerHTML = `
+    <div class="intro-card">
+      <div class="intro-icon">🌿</div>
+      <h2 class="intro-title">Prüfungstraining starten</h2>
+      <p class="intro-desc">
+        Du bekommst 30 zufällig ausgewählte Fragen aus allen Themenbereichen.
+        Die Fragen sind so formuliert, dass du wirklich verstehst – nicht nur auswendig lernst.
+      </p>
+      <div class="topics-grid">
+        <div class="topic-item"><span class="topic-dot"></span>Technik & Geräte</div>
+        <div class="topic-item"><span class="topic-dot"></span>Pflanzenkrankheiten</div>
+        <div class="topic-item"><span class="topic-dot"></span>Schädlinge & Biologie</div>
+        <div class="topic-item"><span class="topic-dot"></span>Recht & Zulassung</div>
+        <div class="topic-item"><span class="topic-dot"></span>Wirkstoffe & Resistenz</div>
+        <div class="topic-item"><span class="topic-dot"></span>Umwelt & Gewässerschutz</div>
+      </div>
+      <button class="start-btn" onclick="startQuiz()">Training beginnen →</button>
+    </div>
+  `;
 }
 
-function showQuestion() {
-    const q = activeQuestions[currentIndex];
-    document.getElementById('cat-label').innerText = q.c;
-    document.getElementById('counter-label').innerText = `Frage ${currentIndex + 1} / 30`;
-    document.getElementById('progress-bar').style.width = `${(currentIndex / 30) * 100}%`;
-    document.getElementById('q-text').innerText = q.q;
-    
-    const container = document.getElementById('options-container');
-    container.innerHTML = '';
-    
-    // Antwortoptionen mischen
-    let opts = q.o.map((text, i) => ({text, i}));
-    opts.sort(() => Math.random() - 0.5);
-
-    opts.forEach(opt => {
-        const btn = document.createElement('button');
-        btn.className = 'option-btn';
-        btn.innerText = opt.text;
-        btn.onclick = () => checkAnswer(opt.i, q.a, q.e);
-        container.appendChild(btn);
-    });
-
-    document.getElementById('feedback').style.display = 'none';
-    document.getElementById('next-btn').style.display = 'none';
+function startQuiz() {
+  activeQuestions = [...fullPool].sort(() => Math.random() - 0.5).slice(0, 30);
+  currentIndex = 0;
+  score = 0;
+  wrongCount = 0;
+  answered = 0;
+  phase = 'quiz';
+  $('stats-bar').style.display = 'flex';
+  updateStats();
+  renderQuestion();
 }
 
-function checkAnswer(selected, correct, explanation) {
-    const btns = document.querySelectorAll('.option-btn');
-    btns.forEach(b => b.disabled = true);
-    const feedback = document.getElementById('feedback');
-    
-    if(selected === correct) {
-        score++;
-        feedback.style.borderColor = "var(--secondary)"; 
-        feedback.style.background = "var(--correct-bg)";
-        feedback.innerHTML = "✅ <b>Richtig!</b> " + explanation;
-    } else {
-        feedback.style.borderColor = "var(--danger)"; 
-        feedback.style.background = "var(--wrong-bg)";
-        feedback.innerHTML = "❌ <b>Leider falsch.</b> " + explanation;
-    }
-    feedback.style.display = 'block';
-    document.getElementById('next-btn').style.display = 'block';
+function renderQuestion() {
+  const q = activeQuestions[currentIndex];
+  const progress = ((currentIndex) / 30) * 100;
+
+  // Shuffle options but keep original index reference
+  let opts = q.o.map((text, i) => ({text, origIdx: i}));
+  opts.sort(() => Math.random() - 0.5);
+
+  const optionsHTML = opts.map((opt, pos) => `
+    <button class="opt-btn" onclick="checkAnswer(${opt.origIdx}, ${q.a}, this, '${escapeForAttr(q.e)}')" data-orig="${opt.origIdx}">
+      <span class="opt-letter">${letters[pos]}</span>
+      <span>${opt.text}</span>
+    </button>
+  `).join('');
+
+  $('main-content').innerHTML = `
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="prog-fill" style="width:${progress}%"></div></div>
+      <span class="progress-label">${currentIndex + 1} / 30</span>
+    </div>
+    <div class="q-card">
+      <div class="q-meta">
+        <span class="q-category">${q.c}</span>
+        <span class="q-number">Frage ${currentIndex + 1}</span>
+      </div>
+      <p class="q-text">${q.q}</p>
+      <div class="options-grid" id="options-grid">
+        ${optionsHTML}
+      </div>
+      <div class="feedback" id="feedback"></div>
+      <button class="next-btn" id="next-btn" onclick="nextQuestion()">
+        ${currentIndex < 29 ? 'Nächste Frage' : 'Ergebnis anzeigen'}
+      </button>
+    </div>
+  `;
 }
 
-document.getElementById('next-btn').onclick = () => {
-    currentIndex++;
-    if(currentIndex < 30) showQuestion();
-    else showResult();
-};
+function escapeForAttr(str) {
+  return str.replace(/'/g, "&#39;").replace(/"/g, "&quot;");
+}
+
+function checkAnswer(selected, correct, clickedBtn, explanation) {
+  const allBtns = document.querySelectorAll('.opt-btn');
+  allBtns.forEach(b => b.disabled = true);
+
+  const fb = $('feedback');
+  const nextBtn = $('next-btn');
+
+  // Find the correct-answer button
+  allBtns.forEach(b => {
+    const orig = parseInt(b.getAttribute('data-orig'));
+    if(orig === correct) b.classList.add('correct');
+  });
+
+  if(selected === correct) {
+    score++;
+    fb.className = 'feedback correct-fb';
+    fb.innerHTML = `<span class="feedback-icon">✅</span><strong>Richtig!</strong> ${explanation}`;
+  } else {
+    wrongCount++;
+    clickedBtn.classList.add('wrong');
+    fb.className = 'feedback wrong-fb';
+    fb.innerHTML = `<span class="feedback-icon">❌</span><strong>Falsch.</strong> ${explanation}`;
+  }
+
+  fb.style.display = 'block';
+  nextBtn.style.display = 'block';
+  answered++;
+  updateStats();
+}
+
+function updateStats() {
+  $('stat-score').textContent = score;
+  $('stat-wrong').textContent = wrongCount;
+  $('stat-pct').textContent = answered > 0 ? Math.round((score/answered)*100) + '%' : '–';
+}
+
+function nextQuestion() {
+  currentIndex++;
+  if(currentIndex < 30) renderQuestion();
+  else showResult();
+}
 
 function showResult() {
-    const p = Math.round((score / 30) * 100);
-    let msg = p >= 70 ? "Hervorragend! Du bist bereit für die Kammerprüfung." : "Das reicht noch nicht ganz. Wiederhole besonders die technischen Details!";
-    
-    document.getElementById('quiz-container').innerHTML = `
-        <div class="result-screen">
-            <h2 style="border:none; text-align:center">Ergebnis deiner Prüfungssimulation</h2>
-            <div class="score-big">${p}%</div>
-            <p>Du hast <b>${score} von 30</b> Fragen richtig beantwortet.</p>
-            <p style="margin:20px 0">${msg}</p>
-            <button onclick="location.reload()" class="next-btn" style="display:block">Neues Training starten (30 neue Fragen)</button>
+  phase = 'result';
+  const pct = Math.round((score/30)*100);
+  let icon, msg;
+  if(pct >= 85) { icon = '🏆'; msg = 'Hervorragende Leistung! Du bist bestens auf die Kammerprüfung vorbereitet. Wiederhole die wenigen Fehler noch einmal kurz.'; }
+  else if(pct >= 70) { icon = '✅'; msg = 'Gutes Ergebnis! Noch ein paar gezielte Wiederholungen in den Schwachstellen, und die Prüfung wird kein Problem für dich.'; }
+  else if(pct >= 50) { icon = '📚'; msg = 'Solide Basis, aber du solltest die Lücken schließen – besonders in Technik und Recht. Nochmal üben!'; }
+  else { icon = '🔄'; msg = 'Das Ergebnis zeigt: Hier ist noch Lernbedarf. Geh die Bereiche systematisch durch und starte dann ein neues Training.'; }
+
+  $('main-content').innerHTML = `
+    <div class="result-card">
+      <div class="result-icon">${icon}</div>
+      <h2 class="result-title">Prüfungssimulation abgeschlossen</h2>
+      <div class="score-display">
+        <span class="score-number">${pct}</span>
+        <span class="score-unit">%</span>
+      </div>
+      <div class="result-breakdown">
+        <div class="breakdown-item">
+          <span class="breakdown-num good">${score}</span>
+          <span class="breakdown-label">Richtig</span>
         </div>
-    `;
+        <div class="breakdown-item">
+          <span class="breakdown-num bad">${wrongCount}</span>
+          <span class="breakdown-label">Falsch</span>
+        </div>
+        <div class="breakdown-item">
+          <span class="breakdown-num">${30}</span>
+          <span class="breakdown-label">Gesamt</span>
+        </div>
+      </div>
+      <p class="result-msg">${msg}</p>
+      <button class="restart-btn" onclick="renderIntro()">Neues Training starten</button>
+    </div>
+  `;
 }
 
-initQuiz();
+renderIntro();
 </script>
 </body>
 </html>
